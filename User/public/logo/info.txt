@@ -1,0 +1,18 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: syncopate-bold
+font link: https://www.fontsquirrel.com/fonts/syncopate
+font author: Astigmatic
+font author site: http://www.astigmatic.com/
+
+
+icon designer: lipi
+icon designer link: /lipi
+        
+
+fontColor: {"hex":"#249900"}
+bgColor: {"hex":"#000000"}
+iconColor: {"hex":"#249900"}
+
+      
