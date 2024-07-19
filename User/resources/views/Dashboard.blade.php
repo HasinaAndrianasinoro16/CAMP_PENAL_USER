@@ -111,15 +111,11 @@
                     {{--                        </ul>--}}
                     {{--                    </li>--}}
                     <li>
-                        <a href="/">
-                            <i class="fas fa-chart-bar"></i>Tableau de bord</a>
-                    </li>
-                    <li>
                         <a href="#">
                             <i class="fas fa-user"></i>Utilisateurs</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/">
                             <i class="fas fa-leaf"></i>Camp penal</a>
                     </li>
                     <li>
