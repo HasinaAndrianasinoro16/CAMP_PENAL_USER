@@ -23,4 +23,14 @@ class CampController extends Controller
             throw new \Exception($exception->getMessage());
         }
     }
+
+    public function DetailsCamp($id)
+    {
+        try {
+            $camp = DB::table('v_camp')->where('id_camp','=',$id)->get();
+            return view('CampDetails')->with('camps',$camp);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }

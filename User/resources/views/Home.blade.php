@@ -37,7 +37,7 @@
                                         <td>{{ $camp->superficie }}</td>
                                         <td>{{ $camp->sol }}</td>
                                         <td>
-                                            <a href="#"><button class="btn btn-primary"><i class="fas fa-eye"></i> </button> </a>
+                                            <a href="{{ route('CampDetails', ['id' => $camp->id]) }}"><button class="btn btn-primary"><i class="fas fa-eye"></i> </button> </a>
                                         </td>
                                     </tr>
                                 @endforeach
