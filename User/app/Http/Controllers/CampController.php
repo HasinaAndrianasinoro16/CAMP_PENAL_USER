@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class CampController extends Controller
 {
+    //controller pour affficher la liste des camps avec la restriction des province pour le DRAP
     public function Camp()
     {
         try {
