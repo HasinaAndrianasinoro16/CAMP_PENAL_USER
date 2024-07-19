@@ -13,7 +13,7 @@ class CampController extends Controller
     {
         try {
             if(Auth::user()->usertype == 1){
-                $camp = DB::table('v_camp')->where('id_province','=',Auth::user()->province);
+                $camp = DB::table('v_camp')->where('id_province','=',Auth::user()->province)->get();
                 return view('Home')->with('camps',$camp);
             }
             $camp = DB::table('v_camp')->get();
