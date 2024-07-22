@@ -62,19 +62,15 @@
 
                     <li>
                         <a href="/">
-                            <i class="fas fa-chart-bar"></i>Tableau de bord</a>
+                            <i class="fas fa-angle-right"></i>Tableau de bord</a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fas fa-user"></i>Utilisateurs</a>
+                            <i class="fas fa-angle-right"></i>Utilisateurs</a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fas fa-leaf"></i>Camp penal</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-map-marker-alt"></i>Carte</a>
+                            <i class="fas fa-angle-right"></i>Camp penal</a>
                     </li>
                 </ul>
             </div>
@@ -92,25 +88,17 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                                        <li class=" has-sub">
-                                            <a class="js-arrow" href="#">
-                                                <i class="fas fa-tachometer-alt"></i>Cuture</a>
-                                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                                <li>
-                                                    <a href="#">Recolte</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Liste des cultures</a>
-                                                </li>
-                                            </ul>
-                                        </li>
                     <li>
                         <a href="/">
-                            <i class="fas fa-leaf"></i>Camp penal</a>
+                            <i class="fas fa-angle-right"></i>Recolte</a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-map-marker-alt"></i>Carte</a>
+                        <a href="/">
+                            <i class="fas fa-angle-right"></i>Liste des cultures</a>
+                    </li>
+                    <li>
+                        <a href="/">
+                            <i class="fas fa-angle-right"></i>Camp penal</a>
                     </li>
 
                 </ul>
