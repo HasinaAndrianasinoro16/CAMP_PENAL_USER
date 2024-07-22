@@ -27,8 +27,9 @@ class CampController extends Controller
     public function DetailsCamp($id)
     {
         try {
-            $camp = DB::table('v_camp')->where('id_camp','=',$id)->get();
-            return view('CampDetails')->with('camps',$camp);
+            $camp = DB::table('v_camp')->where('id','=',$id)->first();
+            $culture = DB::table('v_campculture')->where('id_camp','=',$id)->get();
+            return view('CampDetails')->with('camps',$camp)->with('cultures',$culture);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
