@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <div class="card-title h3">Liste des cultures</div>
@@ -80,6 +80,28 @@
                         <thead>
                         <th>Culutre</th>
                         <th>Supperficie</th>
+                        </thead>
+                        <tbody>
+                        @foreach($cultures as $culture)
+                            <tr>
+                                <td>{{ $culture->culture }}</td>
+                                <td>{{ $culture->superficie }} ha</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title h3">Liste des collaboteur</div>
+                    <table class="table table-borderless tab">
+                        <thead>
+                        <th>Nom</th>
+                        <th>Debut et fin de fonction</th>
+                        <th>Details</th>
                         </thead>
                         <tbody>
                         @foreach($cultures as $culture)

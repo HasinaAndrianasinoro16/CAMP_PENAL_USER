@@ -24,6 +24,8 @@ class CampController extends Controller
         }
     }
 
+
+    //Controller pour afficher les details d'un camp
     public function DetailsCamp($id)
     {
         try {
