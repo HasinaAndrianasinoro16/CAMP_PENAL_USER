@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                    <div class="card-title h3">Formulaire d'ajout de collaborateur</div>
-                    <form action="#" method="post">
+                    <form action="{{ route('SaveCollaborateur') }}" method="post">
                         @csrf
                         <div class="card-body card-block">
                             <div class="form-group">
