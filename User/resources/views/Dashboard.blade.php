@@ -81,7 +81,7 @@
                             <i class="fas fa-angle-right"></i>Materiel</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
-                                <a href="#">Ajout</a>
+                                <a href="{{ route('Materiel') }}">Ajout</a>
                             </li>
                             <li>
                                 <a href="#">Liste</a>
@@ -125,7 +125,7 @@
                             <i class="fas fa-angle-right"></i>Materiel</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
-                                <a href="#"><i class="fas fa-angle-right"></i> Ajout</a>
+                                <a href="{{ route('Materiel') }}"><i class="fas fa-angle-right"></i> Ajout</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fas fa-angle-right"></i> Liste</a>
