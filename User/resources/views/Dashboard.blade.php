@@ -72,6 +72,22 @@
                         <a href="#">
                             <i class="fas fa-angle-right"></i>Camp penal</a>
                     </li>
+                    <li>
+                        <a href="{{ route('Collaborateur') }}">
+                            <i class="fas fa-angle-right"></i>Collaborateur</a>
+                    </li>
+                    <li class="has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-angle-right"></i>Materiel</a>
+                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <li>
+                                <a href="#">Ajout</a>
+                            </li>
+                            <li>
+                                <a href="#">Liste</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -100,7 +116,22 @@
                         <a href="/">
                             <i class="fas fa-angle-right"></i>Camp penal</a>
                     </li>
-
+                    <li>
+                        <a href="{{ route('Collaborateur') }}">
+                            <i class="fas fa-angle-right"></i>Collaborateur</a>
+                    </li>
+                    <li class="has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-angle-right"></i>Materiel</a>
+                        <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <li>
+                                <a href="#"><i class="fas fa-angle-right"></i> Ajout</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fas fa-angle-right"></i> Liste</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

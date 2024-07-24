@@ -23,6 +23,8 @@ Route::get('/', [\App\Http\Controllers\CampController::class,'Camp'])->middlewar
 
 Route::get('/Camp-details/{id?}',[\App\Http\Controllers\CampController::class,'DetailsCamp'])->middleware(['auth', 'verified'])->name('CampDetails');
 
+Route::get('/Collaborateur', [\App\Http\Controllers\CollaborateurController::class,'Collaborateur'])->middleware(['auth', 'verified'])->name('Collaborateur');
+
 //POST URL
 
 Route::middleware('auth')->group(function () {
