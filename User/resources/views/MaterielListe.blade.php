@@ -23,11 +23,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @foreach( $materiels as $materiel )
+                                    <tr>
+                                        <td>{{ $materiel->materiel }}</td>
+                                        <td>{{ $materiel->count }}</td>
+                                        <td>{{ $materiel->durer }}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                                 </tfoot>
                             </table>

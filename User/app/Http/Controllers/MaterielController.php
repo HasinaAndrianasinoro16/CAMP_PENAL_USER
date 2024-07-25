@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Materiel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MaterielController extends Controller
 {
@@ -36,7 +37,8 @@ class MaterielController extends Controller
     public function MaterielListe()
     {
         try {
-            return view('MaterielListe');
+            $materiel = DB::table('v_materiel')->get();
+            return view('MaterielListe')->with('materiels', $materiel);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
