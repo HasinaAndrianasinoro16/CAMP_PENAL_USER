@@ -31,4 +31,14 @@ class MaterielController extends Controller
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //controller pour afficher les listes de materiels
+    public function MaterielListe()
+    {
+        try {
+            return view('MaterielListe');
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }

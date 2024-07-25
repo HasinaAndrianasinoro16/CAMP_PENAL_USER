@@ -84,7 +84,7 @@
                                 <a href="{{ route('Materiel') }}">Ajout</a>
                             </li>
                             <li>
-                                <a href="#">Liste</a>
+                                <a href="{{ route('MaterielListe') }}">Liste</a>
                             </li>
                         </ul>
                     </li>
@@ -128,7 +128,7 @@
                                 <a href="{{ route('Materiel') }}"><i class="fas fa-angle-right"></i> Ajout</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fas fa-angle-right"></i> Liste</a>
+                                <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i> Liste</a>
                             </li>
                         </ul>
                     </li>

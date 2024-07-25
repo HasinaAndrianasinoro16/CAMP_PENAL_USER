@@ -26,6 +26,9 @@ Route::get('/Camp-details/{id?}',[\App\Http\Controllers\CampController::class,'D
 Route::get('/Collaborateur-page', [\App\Http\Controllers\CollaborateurController::class,'Collaborateur'])->middleware(['auth', 'verified'])->name('Collaborateur');
 
 Route::get('/Materiel-page',[\App\Http\Controllers\MaterielController::class,'Materiel'])->middleware(['auth', 'verified'])->name('Materiel');
+
+Route::get('/Liste-materiel-page',[\App\Http\Controllers\MaterielController::class,'MaterielListe'])->middleware(['auth', 'verified'])->name('MaterielListe');
+
 //POST URL
 Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurController::class,'SaveCollaborateur'])->middleware(['auth', 'verified'])->name('SaveCollaborateur');
 
