@@ -36,4 +36,14 @@ class CampController extends Controller
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //controller pour afficher la view
+    public function Addinfo($id)
+    {
+        try {
+            return view('Addinfo');
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }
