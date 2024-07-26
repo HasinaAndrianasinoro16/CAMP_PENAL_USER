@@ -104,10 +104,11 @@
                         <th>Details</th>
                         </thead>
                         <tbody>
-                        @foreach($cultures as $culture)
+                        @foreach($colabs as $colab)
                             <tr>
-                                <td>{{ $culture->culture }}</td>
-                                <td>{{ $culture->superficie }} ha</td>
+                                <td>{{ $colab->colab }}</td>
+                                <td>{{ $colab->debut }} - {{ $colab->fin }}</td>
+                                <td>{{ $colab->details }}</td>
                             </tr>
                         @endforeach
                         </tbody>

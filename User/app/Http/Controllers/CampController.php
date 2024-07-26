@@ -31,17 +31,40 @@ class CampController extends Controller
         try {
             $camp = DB::table('v_camp')->where('id','=',$id)->first();
             $culture = DB::table('v_campculture')->where('id_camp','=',$id)->get();
-            return view('CampDetails')->with('camps',$camp)->with('cultures',$culture);
+            $colabs = DB::table('v_campcollab')->where('id_camp','=',$id)->get();
+            return view('CampDetails')->with('camps',$camp)->with('cultures',$culture)->with('colabs',$colabs);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
     }
 
-    //controller pour afficher la view
-    public function Addinfo($id)
+    //controller pour afficher la view Addinfo
+    public function Addinfo()
     {
         try {
-            return view('Addinfo');
+            $colabs = DB::table('collaborateur')->get();
+            $materiel = DB::table('materiel')->get();
+            return view('AddInfo')->with('colabs',$colabs)->with('materiels',$materiel);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour l'assignement d'un collaborateur
+    public function CampCollab(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => 'required',
+                'colab' => 'required',
+                'debut' => 'required',
+                'fin' => 'nullable',
+                'details' => 'nullable',
+            ]);
+
+            Camp::CampCollab(\request('id'),\request('colab'),\request('details'),\request('debut'),\request('fin'));
+
+            return redirect()->back()->with('success', 'Collaborateur assigné avec succès');
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }

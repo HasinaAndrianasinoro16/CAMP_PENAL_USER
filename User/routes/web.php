@@ -36,6 +36,8 @@ Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurCont
 
 Route::post('/Form-Ajout-Materiel',[\App\Http\Controllers\MaterielController::class,'SaveMateriel'])->middleware(['auth', 'verified'])->name('SaveMateriel');
 
+Route::post('/Form-Ajout-CampCollab',[\App\Http\Controllers\CampController::class,'CampCollab'])->middleware(['auth', 'verified'])->name('CampCollab');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
