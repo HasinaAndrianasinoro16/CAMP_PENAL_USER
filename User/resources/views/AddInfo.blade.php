@@ -12,13 +12,9 @@
                 <div class="card-body">
                     <div class="card-title h3">Formulaire d'ajout de collaborateur</div>
                     @if (session('success'))
-                       <div class="row">
-                           <div class="col-lg-6">
-                               <div class="alert alert-success">
+                               <div class="alert alert-success w-6">
                                    {{ session('success') }}
                                </div>
-                           </div>
-                       </div>
                     @endif
                     <form action="{{ route('CampCollab') }}" method="post">
                         @csrf
@@ -70,8 +66,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title h3">Formulaire d'ajout de Don</div>
-                    <form action="#" method="post">
+                    @if (session('success2'))
+                        <div class="alert alert-success w-6">
+                            {{ session('success2') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('Dons') }}" method="post">
                         @csrf
+                        <input type="hidden" name="id" value="{{ request()->segment(2) }}">
                         <div class="card-body card-block">
                             <div class="form-group">
                                 <div class="col-8">

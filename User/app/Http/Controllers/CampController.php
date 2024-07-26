@@ -69,4 +69,23 @@ class CampController extends Controller
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //controller pour le formulaire de don
+    public function Dons(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => 'required',
+                'materiel' => 'required',
+                'colab' => 'required',
+                'montant' => 'required',
+                'date' => 'required',
+            ]);
+
+            Camp::Dons(\request('id'),\request('materiel'),\request('colab'),\request('montant'),\request('date'));
+            return redirect()->back()->with('success2','Don enregistrer avec succes');
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }
