@@ -78,11 +78,11 @@ class CampController extends Controller
                 'id' => 'required',
                 'materiel' => 'required',
                 'colab' => 'required',
-                'montant' => 'required',
+                'qte' => 'required',
                 'date' => 'required',
             ]);
 
-            Camp::Dons(\request('id'),\request('materiel'),\request('colab'),\request('montant'),\request('date'));
+            Camp::Dons(\request('id'),\request('materiel'),\request('colab'),\request('qte'),\request('date'));
             return redirect()->back()->with('success2','Don enregistrer avec succes');
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());

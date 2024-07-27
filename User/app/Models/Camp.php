@@ -36,7 +36,7 @@ class Camp extends Model
                     'camp' => $camp,
                     'collaborateur' => $colab,
                     'materiel' => $materiel,
-                    'montant' => $montant,
+                    'quantite' => $montant,
                     'datedon' => $envoie
                 ]);
             return $insert;

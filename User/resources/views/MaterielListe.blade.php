@@ -20,14 +20,18 @@
                                     <th>Nom</th>
                                     <th>Quantire</th>
                                     <th>duree (mois)</th>
+                                    <th> -- </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach( $materiels as $materiel )
                                     <tr>
                                         <td>{{ $materiel->materiel }}</td>
-                                        <td>{{ $materiel->count }}</td>
+                                        <td>{{ $materiel->nombre }}</td>
                                         <td>{{ $materiel->durer }}</td>
+                                        <td>
+                                            <a href="#"><button class="btn btn-primary"><i class="fas fa-eye"></i></button> </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

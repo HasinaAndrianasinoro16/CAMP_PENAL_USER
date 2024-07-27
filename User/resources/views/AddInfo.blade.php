@@ -98,8 +98,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-8">
-                                    <label for="montant" class="form-control-label">Montant</label>
-                                   <input class="form-control" id="montant" name="montant" type="text">
+                                    <label for="Quantite" class="form-control-label">Quantite</label>
+                                   <input class="form-control" id="Quantite" name="qte" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
