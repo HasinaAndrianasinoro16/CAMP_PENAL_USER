@@ -33,6 +33,8 @@ Route::get('/Ajout-info-camp/{id?}',[\App\Http\Controllers\CampController::class
 
 Route::get('/Details-Materiels/{id?}',[\App\Http\Controllers\MaterielController::class,'DetailsMateriel'])->middleware(['auth', 'verified'])->name('DetailsMateriel');
 
+Route::get('/Ajout-Recolte-page/{id?}',[\App\Http\Controllers\CampController::class,'AddRecolte'])->middleware(['auth', 'verified'])->name('AjoutRecolte');
+
 //POST URL
 Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurController::class,'SaveCollaborateur'])->middleware(['auth', 'verified'])->name('SaveCollaborateur');
 
