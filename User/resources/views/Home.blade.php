@@ -39,7 +39,7 @@
                                         <td>
                                             <a href="{{ route('CampDetails', ['id' => $camp->id]) }}"><button class="btn btn-primary"><i class="fas fa-eye"></i> </button></a>
                                             <a href="{{ route('AjoutInfoCamp',['id' => $camp->id]) }}"><button class="btn btn-success" ><i class="fas fa-plus-circle"></i></button></a>
-                                            <a href="#"><button class="btn btn-success"><i class="fas fa-leaf"></i></button></a>
+                                            <a href="{{ route('AjoutRecolte', ['id' => $camp->id]) }}"><button class="btn btn-success"><i class="fas fa-leaf"></i></button></a>
                                         </td>
                                     </tr>
                                 @endforeach

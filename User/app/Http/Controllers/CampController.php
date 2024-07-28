@@ -88,4 +88,14 @@ class CampController extends Controller
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //controller pour afficher le formulaire d'ajout de culture dans les stock
+    public function AddRecolte()
+    {
+        try {
+            return view('AddRecolte');
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }
