@@ -90,10 +90,28 @@ class CampController extends Controller
     }
 
     //controller pour afficher le formulaire d'ajout de culture dans les stock
-    public function AddRecolte()
+    public function AddRecolte($id)
     {
         try {
-            return view('AddRecolte');
+            $culture = DB::table('v_campculture')->where('id_camp','=',$id)->get();
+            return view('AddRecolte')->with('cultures',$culture);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour le formulaire d'enregistrenent de recolte
+    public function SaveRecolte(Request $request)
+    {
+        try {
+            request()->validate([
+                'camp' => 'required',
+                'culture' => 'required',
+                'quantite' => 'required',
+                'date' => 'required',
+            ]);
+            Camp::SaveRecolte(\request('camp'),\request('culture'),\request('quantite'),\request('date'));
+            return redirect()->back()->with('success','Recolte enregistrer avec succes');
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }

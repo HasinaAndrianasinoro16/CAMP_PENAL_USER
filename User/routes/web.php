@@ -43,6 +43,8 @@ Route::post('/Form-Ajout-Materiel',[\App\Http\Controllers\MaterielController::cl
 Route::post('/Form-Ajout-CampCollab',[\App\Http\Controllers\CampController::class,'CampCollab'])->middleware(['auth', 'verified'])->name('CampCollab');
 
 Route::post('/Form-Ajout-Don',[\App\Http\Controllers\CampController::class,'Dons'])->middleware(['auth', 'verified'])->name('Dons');
+
+Route::post('/Form-Ajout-recolte',[\App\Http\Controllers\CampController::class,'SaveRecolte'])->middleware(['auth', 'verified'])->name('SaveRecolte');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

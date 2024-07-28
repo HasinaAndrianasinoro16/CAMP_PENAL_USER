@@ -44,5 +44,23 @@ class Camp extends Model
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //fonction pour enregistrer une recolte
+    public static function SaveRecolte($camp, $culture, $quantite, $date)
+    {
+        try{
+            $insert = DB::table('stockculture')
+                ->insert([
+                    'camp' => $camp,
+                    'culture' => $culture,
+                    'quantite' => $quantite,
+                    'datestock' => $date,
+                    'etat' => 0
+                ]);
+            return $insert;
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
     use HasFactory;
 }
