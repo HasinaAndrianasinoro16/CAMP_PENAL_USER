@@ -61,13 +61,13 @@
                 <ul class="navbar-mobile__list list-unstyled">
 
                     <li>
-                        <a href="/">
-                            <i class="fas fa-angle-right"></i>Tableau de bord</a>
-                    </li>
-                    <li>
                         <a href="#">
-                            <i class="fas fa-angle-right"></i>Utilisateurs</a>
+                            <i class="fas fa-angle-right"></i>Recolte</a>
                     </li>
+{{--                    <li>--}}
+{{--                        <a href="#">--}}
+{{--                            <i class="fas fa-angle-right"></i>Utilisateurs</a>--}}
+{{--                    </li>--}}
                     <li>
                         <a href="#">
                             <i class="fas fa-angle-right"></i>Camp penal</a>
@@ -105,13 +105,13 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a href="/">
+                        <a href="#">
                             <i class="fas fa-angle-right"></i>Recolte</a>
                     </li>
-                    <li>
-                        <a href="/">
-                            <i class="fas fa-angle-right"></i>Liste des cultures</a>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="/">--}}
+{{--                            <i class="fas fa-angle-right"></i>Liste des cultures</a>--}}
+{{--                    </li>--}}
                     <li>
                         <a href="/">
                             <i class="fas fa-angle-right"></i>Camp penal</a>

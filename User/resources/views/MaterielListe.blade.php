@@ -30,7 +30,7 @@
                                         <td>{{ $materiel->nombre }}</td>
                                         <td>{{ $materiel->durer }}</td>
                                         <td>
-                                            <a href="#"><button class="btn btn-primary"><i class="fas fa-eye"></i></button> </a>
+                                            <a href="{{ route('DetailsMateriel', ['id' => $materiel->id_materiel]) }}"><button class="btn btn-primary"><i class="fas fa-eye"></i></button> </a>
                                         </td>
                                     </tr>
                                 @endforeach

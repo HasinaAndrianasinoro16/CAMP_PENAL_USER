@@ -31,6 +31,8 @@ Route::get('/Liste-materiel-page',[\App\Http\Controllers\MaterielController::cla
 
 Route::get('/Ajout-info-camp/{id?}',[\App\Http\Controllers\CampController::class,'Addinfo'])->middleware(['auth', 'verified'])->name('AjoutInfoCamp');
 
+Route::get('/Details-Materiels/{id?}',[\App\Http\Controllers\MaterielController::class,'DetailsMateriel'])->middleware(['auth', 'verified'])->name('DetailsMateriel');
+
 //POST URL
 Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurController::class,'SaveCollaborateur'])->middleware(['auth', 'verified'])->name('SaveCollaborateur');
 

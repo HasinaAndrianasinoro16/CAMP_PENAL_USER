@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Materiel;
+use Couchbase\WatchQueryIndexesOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,6 +40,17 @@ class MaterielController extends Controller
         try {
             $materiel = DB::table('v_materiel')->get();
             return view('MaterielListe')->with('materiels', $materiel);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour afficher les details de la venue de chaque Materiels
+    public function DetailsMateriel($id)
+    {
+        try {
+            $materiels = DB::table('v_don')->where('id_materiel','=',$id)->get();
+            return view('DetailsMateriel')->with('materiels',$materiels);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
