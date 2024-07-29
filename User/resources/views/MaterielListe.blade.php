@@ -14,29 +14,32 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title h3">Liste materiel</div>
-                            <table id="example" class="table table-hover" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Quantire</th>
-                                    <th>duree (mois)</th>
-                                    <th> -- </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach( $materiels as $materiel )
+                            <div class="table-responsive">
+                                <table id="example" class="table table-hover" style="width:100%">
+                                    <thead>
                                     <tr>
-                                        <td>{{ $materiel->materiel }}</td>
-                                        <td>{{ $materiel->nombre }}</td>
-                                        <td>{{ $materiel->durer }}</td>
-                                        <td>
-                                            <a href="{{ route('DetailsMateriel', ['id' => $materiel->id_materiel]) }}"><button class="btn btn-primary"><i class="fas fa-eye"></i></button> </a>
-                                        </td>
+                                        <th>Nom</th>
+                                        <th>Quantité</th>
+                                        <th>Durée (mois)</th>
+                                        <th> -- </th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                                </tfoot>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($materiels as $materiel)
+                                        <tr>
+                                            <td>{{ $materiel->materiel }}</td>
+                                            <td>{{ $materiel->nombre }}</td>
+                                            <td>{{ $materiel->durer }}</td>
+                                            <td>
+                                                <a href="{{ route('DetailsMateriel', ['id' => $materiel->id_materiel]) }}">
+                                                    <button class="btn btn-primary"><i class="fas fa-eye"></i></button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,9 +48,11 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
     <script>
-        new DataTable('#example');
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
     </script>
 @endsection

@@ -59,17 +59,16 @@
         <nav class="navbar-mobile">
             <div class="container-fluid">
                 <ul class="navbar-mobile__list list-unstyled">
-
                     <li>
                         <a href="#">
                             <i class="fas fa-angle-right"></i>Recolte</a>
                     </li>
-{{--                    <li>--}}
-{{--                        <a href="#">--}}
-{{--                            <i class="fas fa-angle-right"></i>Utilisateurs</a>--}}
-{{--                    </li>--}}
+                    {{--                    <li>--}}
+                    {{--                        <a href="/">--}}
+                    {{--                            <i class="fas fa-angle-right"></i>Liste des cultures</a>--}}
+                    {{--                    </li>--}}
                     <li>
-                        <a href="#">
+                        <a href="/">
                             <i class="fas fa-angle-right"></i>Camp penal</a>
                     </li>
                     <li>
@@ -81,10 +80,10 @@
                             <i class="fas fa-angle-right"></i>Materiel</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             <li>
-                                <a href="{{ route('Materiel') }}">Ajout</a>
+                                <a href="{{ route('Materiel') }}"><i class="fas fa-angle-right"></i> Ajout</a>
                             </li>
                             <li>
-                                <a href="{{ route('MaterielListe') }}">Liste</a>
+                                <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i> Liste</a>
                             </li>
                         </ul>
                     </li>
