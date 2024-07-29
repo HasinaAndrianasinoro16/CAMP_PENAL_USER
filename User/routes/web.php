@@ -35,6 +35,8 @@ Route::get('/Details-Materiels/{id?}',[\App\Http\Controllers\MaterielController:
 
 Route::get('/Ajout-Recolte-page/{id?}',[\App\Http\Controllers\CampController::class,'AddRecolte'])->middleware(['auth', 'verified'])->name('AjoutRecolte');
 
+Route::get('/Calendrier-Recolte-Page',[\App\Http\Controllers\CampController::class,'Recolte'])->middleware(['auth', 'verified'])->name('CalendrierRecolte');
+
 //POST URL
 Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurController::class,'SaveCollaborateur'])->middleware(['auth', 'verified'])->name('SaveCollaborateur');
 

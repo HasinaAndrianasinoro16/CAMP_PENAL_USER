@@ -28,7 +28,7 @@
                                     @foreach($materiels as $materiel)
                                         <tr>
                                             <td>{{ $materiel->materiel }}</td>
-                                            <td>{{ $materiel->nombre }}</td>
+                                            <td>{{ number_format($materiel->nombre,2,'.',',') }}</td>
                                             <td>{{ $materiel->durer }}</td>
                                             <td>
                                                 <a href="{{ route('DetailsMateriel', ['id' => $materiel->id_materiel]) }}">

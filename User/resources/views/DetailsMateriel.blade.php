@@ -30,7 +30,7 @@
                                         <td>{{ $materiel->materiel }}</td>
                                         <td>{{ $materiel->colab }}</td>
                                         <td>{{ $materiel->camp }}</td>
-                                        <td>{{ $materiel->quantite }}</td>
+                                        <td>{{ number_format($materiel->quantite,2,',','.') }}</td>
                                         <td>{{ $materiel->datedon }}</td>
                                     </tr>
                                 @endforeach
