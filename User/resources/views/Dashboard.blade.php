@@ -60,7 +60,7 @@
             <div class="container-fluid">
                 <ul class="navbar-mobile__list list-unstyled">
                     <li>
-                        <a href="#">
+                        <a href="{{ route('CalendrierRecolte') }}">
                             <i class="fas fa-angle-right"></i>Recolte</a>
                     </li>
                     {{--                    <li>--}}
@@ -104,7 +104,7 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a href="#">
+                        <a href="{{route('CalendrierRecolte')}}">
                             <i class="fas fa-angle-right"></i>Recolte</a>
                     </li>
 {{--                    <li>--}}

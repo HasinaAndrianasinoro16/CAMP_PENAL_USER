@@ -116,4 +116,14 @@ class CampController extends Controller
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //controller pour afficher le calendrier de recolte
+    public function Recolte()
+    {
+        try {
+            return view('Recolte');
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }
