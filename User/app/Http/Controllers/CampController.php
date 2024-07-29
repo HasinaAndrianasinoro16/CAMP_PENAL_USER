@@ -121,7 +121,22 @@ class CampController extends Controller
     public function Recolte()
     {
         try {
-            return view('Recolte');
+            $recoltes = DB::table('etatstock')->where('etat','=',0)->get();
+            return view('Recolte')->with('recoltes',$recoltes);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour afficher la page des details
+    public function DetailsRecolte($id)
+    {
+        try {
+            $camp = DB::table('etatstock')->where('id_stock', '=', $id)->where('etat', '=', 0)->value('camp');
+            $id_camp = DB::table('etatstock')->where('id_stock', '=', $id)->where('etat', '=', 0)->value('id_camp');
+            $recoltes = DB::table('etatstock')->where('id_stock','=',$id)->where('etat','=',0)->get();
+            $estimation = DB::table('moyenne_stocks')->where('id_camp','=',$id_camp)->get();
+            return view('DetailsRecolte')->with('recoltes',$recoltes)->with('camp',$camp)->with('estimations',$estimation);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
