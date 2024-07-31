@@ -13,7 +13,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title h3">Details des Materiels</div>
+                            <div class="card-title h3">Liste des Dons d'argent</div>
                             <table id="example" class="table table-hover" >
                                 <thead>
                                 <tr>

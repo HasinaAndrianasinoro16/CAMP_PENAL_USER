@@ -7,6 +7,15 @@
             </div>
             <div class="py-3"></div>
         </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -23,7 +32,7 @@
                             <div class="form-group">
                                 <div class="col-8">
                                     <label for="mySelect" class="form-control-label">Collaborateur</label>
-                                    <select id="mySelect" name="colab" style="height: 100%;" class="form-control" required>
+                                    <select id="mySelect" name="colab" style="height: 100%;" class="form-control" >
                                       @foreach( $colabs as $colab )
                                           <option value="{{ $colab->id }}">{{ $colab->nom }}</option>
                                       @endforeach
@@ -33,7 +42,7 @@
                             <div class="form-group">
                                 <div class="col-8">
                                     <label for="debut" class="form-control-label">date debut de fonction</label>
-                                    <input type="date" id="debut" class="form-control" name="debut" required>
+                                    <input type="date" id="debut" class="form-control" name="debut" >
                                 </div>
                             </div>
 
@@ -77,8 +86,8 @@
                         <div class="card-body card-block">
                             <div class="form-group">
                                 <div class="col-8">
-                                    <label for="mySelect2" class="form-control-label">Materiel</label>
-                                    <select id="mySelect2" name="materiel" style="width: 100%;" class="form-control" required>
+                                    <label for="mySelect2" class="form-control-label">Don</label>
+                                    <select id="mySelect2" name="materiel" style="width: 100%;" class="form-control" >
                                         @foreach( $materiels as $materiel )
                                             <option value="{{ $materiel->id }}">{{ $materiel->nom }}</option>
                                         @endforeach
@@ -89,7 +98,7 @@
                             <div class="form-group">
                                 <div class="col-8">
                                     <label for="mySelect3" class="form-control-label">Donneur</label>
-                                    <select id="mySelect3" name="colab" style="width: 100%;" class="form-control" required>
+                                    <select id="mySelect3" name="colab" style="width: 100%;" class="form-control" >
                                         @foreach( $colabs as $colab )
                                             <option value="{{ $colab->id }}">{{ $colab->nom }}</option>
                                         @endforeach

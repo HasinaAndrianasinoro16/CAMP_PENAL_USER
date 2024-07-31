@@ -54,47 +54,116 @@ class CampController extends Controller
     public function CampCollab(Request $request)
     {
         try {
+            // Validation des données avec messages d'erreur personnalisés
             $request->validate([
-                'id' => 'required',
-                'colab' => 'required',
-                'debut' => 'required',
-                'fin' => 'nullable',
-                'details' => 'nullable',
+                'id' => 'required|string',
+                'colab' => 'required|string',
+                'debut' => 'required|date',
+                'fin' => 'nullable|date|after_or_equal:debut',
+                'details' => 'nullable|string',
+            ], [
+                'id.required' => 'Le champ ID est obligatoire.',
+                'id.integer' => 'L\'ID doit être une chaine de caractere.',
+                'colab.required' => 'Le champ Collaborateur est obligatoire.',
+                'colab.string' => 'Le champ Collaborateur doit être une chaîne de caractères.',
+                'debut.required' => 'Le champ Début est obligatoire.',
+                'debut.date' => 'Le champ Début doit être une date valide.',
+                'fin.date' => 'Le champ Fin doit être une date valide.',
+                'fin.after_or_equal' => 'Le champ Fin doit être une date après ou égale à la date de Début.',
+                'details.string' => 'Le champ Détails doit être une chaîne de caractères.',
             ]);
 
-            Camp::CampCollab(\request('id'),\request('colab'),\request('details'),\request('debut'),\request('fin'));
+            Camp::CampCollab($request->input('id'), $request->input('colab'), $request->input('details'), $request->input('debut'), $request->input('fin'));
 
             return redirect()->back()->with('success', 'Collaborateur assigné avec succès');
-        }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
+
+        } catch (\Exception $exception) {
+            // Gestion des erreurs avec un message utilisateur
+            return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite : ' . $exception->getMessage()]);
         }
     }
+
+//    public function CampCollab(Request $request)
+//    {
+//        try {
+//            $request->validate([
+//                'id' => 'required',
+//                'colab' => 'required',
+//                'debut' => 'required',
+//                'fin' => 'nullable',
+//                'details' => 'nullable',
+//            ]);
+//
+//            Camp::CampCollab(\request('id'),\request('colab'),\request('details'),\request('debut'),\request('fin'));
+//
+//            return redirect()->back()->with('success', 'Collaborateur assigné avec succès');
+//        }catch (\Exception $exception){
+//            throw new \Exception($exception->getMessage());
+//        }
+//    }
 
     //controller pour le formulaire de don
     public function Dons(Request $request)
     {
         try {
+            // Validation des données avec messages d'erreur personnalisés
             $request->validate([
-                'id' => 'required',
-                'materiel' => 'required',
-                'colab' => 'required',
-                'qte' => 'required',
-                'date' => 'required',
+                'id' => 'required|string',
+                'materiel' => 'required|string',
+                'colab' => 'required|string',
+                'qte' => 'required|numeric',
+                'date' => 'required|date',
+            ], [
+                'id.required' => 'Le champ ID est obligatoire.',
+                'id.integer' => 'L\'ID doit être une chaine de carctere.',
+                'materiel.required' => 'Le champ Matériel est obligatoire.',
+                'materiel.string' => 'Le champ Matériel doit être une chaîne de caractères.',
+                'colab.required' => 'Le champ Collaborateur est obligatoire.',
+                'colab.string' => 'Le champ Collaborateur doit être une chaîne de caractères.',
+                'qte.required' => 'Le champ Quantité est obligatoire.',
+                'qte.numeric' => 'Le champ Quantité doit être un nombre.',
+                'date.required' => 'Le champ Date est obligatoire.',
+                'date.date' => 'Le champ Date doit être une date valide.',
             ]);
 
-            Camp::Dons(\request('id'),\request('materiel'),\request('colab'),\request('qte'),\request('date'));
-            return redirect()->back()->with('success2','Don enregistrer avec succes');
-        }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
+            // Appel à la méthode Dons
+            Camp::Dons($request->input('id'), $request->input('materiel'), $request->input('colab'), $request->input('qte'), $request->input('date'));
+
+            // Redirection avec un message de succès
+            return redirect()->back()->with('success2', 'Don enregistré avec succès');
+
+        } catch (\Exception $exception) {
+            // Gestion des erreurs avec un message utilisateur
+            return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite : ' . $exception->getMessage()]);
         }
     }
+
+//    public function Dons(Request $request)
+//    {
+//        try {
+//            $request->validate([
+//                'id' => 'required',
+//                'materiel' => 'required',
+//                'colab' => 'required',
+//                'qte' => 'required',
+//                'date' => 'required',
+//            ]);
+//
+//            Camp::Dons(\request('id'),\request('materiel'),\request('colab'),\request('qte'),\request('date'));
+//            return redirect()->back()->with('success2','Don enregistrer avec succes');
+//        }catch (\Exception $exception){
+//            throw new \Exception($exception->getMessage());
+//        }
+//    }
 
     //controller pour afficher le formulaire d'ajout de culture dans les stock
     public function AddRecolte($id)
     {
         try {
             $culture = DB::table('v_campculture')->where('id_camp','=',$id)->get();
-            return view('AddRecolte')->with('cultures',$culture);
+            $cultures = DB::table('culture')->get();
+            $liste = DB::table('v_campculture')->where('id_camp','=',$id)->get();
+            return view('AddRecolte')->with('cultures',$culture)->with('cults',$cultures)->with('listes',$liste);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
@@ -104,29 +173,44 @@ class CampController extends Controller
     public function SaveRecolte(Request $request)
     {
         try {
-            request()->validate([
+            $request->validate([
                 'camp' => 'required',
                 'culture' => 'required',
-                'quantite' => 'required',
-                'date' => 'required',
+                'quantite' => 'required|numeric',
+                'date' => 'required|date',
+            ],[
+                'camp.required' => 'Le champ camp est obligatoire.',
+                'culture.required' => 'Le champ culture est obligatoire.',
+                'quantite.required' => 'Le champ quantite est obligatoire.',
+                'quantite.numeric' => 'Le champ quantite doit être un nombre.',
+                'date.required' => 'Le champ date est obligatoire.',
+                'date.date' => 'Le champ date doit être une date valide.',
             ]);
-            Camp::SaveRecolte(\request('camp'),\request('culture'),\request('quantite'),\request('date'));
-            return redirect()->back()->with('success','Recolte enregistrer avec succes');
-        }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
+
+            Camp::SaveRecolte($request->camp, $request->culture, $request->quantite, $request->date);
+
+            return redirect()->back()->with('success', 'Récolte enregistrée avec succès');
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
+
 
     //controller pour afficher le calendrier de recolte
     public function Recolte()
     {
         try {
+            if (Auth::user()->usertype == 1){
+                $recoltes = DB::table('etatstock')->where('etat','=',0)->where('province','=',Auth::user()->province)->get();
+                return view('Recolte')->with('recoltes', $recoltes);
+            }
             $recoltes = DB::table('etatstock')->where('etat','=',0)->get();
-            return view('Recolte')->with('recoltes',$recoltes);
-        }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
+            return view('Recolte')->with('recoltes', $recoltes);
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
+
 
     //controller pour afficher la page des details
     public function DetailsRecolte($id)
@@ -137,6 +221,40 @@ class CampController extends Controller
             $recoltes = DB::table('etatstock')->where('id_stock','=',$id)->where('etat','=',0)->get();
             $estimation = DB::table('moyenne_stocks')->where('id_camp','=',$id_camp)->get();
             return view('DetailsRecolte')->with('recoltes',$recoltes)->with('camp',$camp)->with('estimations',$estimation);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour enregistrer les nouvelle culture dans le camp penal
+    public function AddCultureCamp(Request $request)
+    {
+        try {
+            $request->validate([
+                'camp' => 'required',
+                'cultures' => 'required',
+                'supperficie' => 'required|numeric',
+            ],[
+                'camp.required' => 'Le champ camp est obligatoire.',
+                'cultures.required' => 'Le champ cultures est obligatoire.',
+                'supperficie.required' => 'Le champ superficie est obligatoire.',
+                'supperficie.numeric' => 'Le champ superficie doit être un nombre.',
+            ]);
+
+            Camp::SaveCulture($request->camp, $request->cultures, $request->supperficie);
+
+            return redirect()->back()->with('success2', 'Nouvelle culture enregistrée avec succès');
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
+    }
+
+
+    public function dropCulture($id)
+    {
+        try {
+            DB::table('campculture')->where('id','=',$id)->delete();
+            return redirect()->back();
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }

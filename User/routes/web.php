@@ -39,7 +39,10 @@ Route::get('/Calendrier-Recolte-Page',[\App\Http\Controllers\CampController::cla
 
 Route::get('/Details-Recolte-page/{id?}',[\App\Http\Controllers\CampController::class,'DetailsRecolte'])->middleware(['auth', 'verified'])->name('DetailsRecolte');
 
-//POST URL
+Route::get('/Delete-Culture/{id?}',[\App\Http\Controllers\CampController::class,'dropCulture'])->middleware(['auth', 'verified'])->name('DeleteCulture');
+
+Route::get('/Liste-don-argent',[\App\Http\Controllers\MaterielController::class,'ArgentListe'])->middleware(['auth', 'verified'])->name('argentliste');
+//POST URL11
 Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurController::class,'SaveCollaborateur'])->middleware(['auth', 'verified'])->name('SaveCollaborateur');
 
 Route::post('/Form-Ajout-Materiel',[\App\Http\Controllers\MaterielController::class,'SaveMateriel'])->middleware(['auth', 'verified'])->name('SaveMateriel');
@@ -49,6 +52,8 @@ Route::post('/Form-Ajout-CampCollab',[\App\Http\Controllers\CampController::clas
 Route::post('/Form-Ajout-Don',[\App\Http\Controllers\CampController::class,'Dons'])->middleware(['auth', 'verified'])->name('Dons');
 
 Route::post('/Form-Ajout-recolte',[\App\Http\Controllers\CampController::class,'SaveRecolte'])->middleware(['auth', 'verified'])->name('SaveRecolte');
+
+Route::post('/Form-Ajout-culture-camp',[\App\Http\Controllers\CampController::class,'AddCultureCamp'])->middleware(['auth', 'verified'])->name('SaveCulture');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

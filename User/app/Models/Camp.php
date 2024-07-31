@@ -62,5 +62,21 @@ class Camp extends Model
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //fonction pour enregistrer la nouvelle culture dans un camp
+    public static function SaveCulture($camp, $culture, $supperficie)
+    {
+        try {
+            $insert = DB::table('campculture')
+                ->insert([
+                    'camp' => $camp,
+                    'culture' => $culture,
+                    'superficie' => $supperficie
+                ]);
+            return $insert;
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
     use HasFactory;
 }

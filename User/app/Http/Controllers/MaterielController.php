@@ -38,7 +38,7 @@ class MaterielController extends Controller
     public function MaterielListe()
     {
         try {
-            $materiel = DB::table('v_materiel')->get();
+            $materiel = DB::table('v_materiel')->where('id_materiel','>',1)->get();
             return view('MaterielListe')->with('materiels', $materiel);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
@@ -51,6 +51,17 @@ class MaterielController extends Controller
         try {
             $materiels = DB::table('v_don')->where('id_materiel','=',$id)->get();
             return view('DetailsMateriel')->with('materiels',$materiels);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour afficher la liste des dons d'argent
+    public function ArgentListe()
+    {
+        try {
+            $argent = DB::table('v_don')->where('id_materiel','=',1)->get();
+            return view('ArgentListe')->with('materiels',$argent);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }

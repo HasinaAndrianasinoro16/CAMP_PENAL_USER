@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-11">
-                                            <label for="superficie" class="form-control-label">Superficie (ha)</label>
+                                            <label for="superficie" class="form-control-label">Superficie cultivée (ha)</label>
                                             <input type="text"  disabled min="1" step="0.1" id="superficie" value="{{ $camps->superficie }}" name="superficie" placeholder="4,1" class="form-control">
                                         </div>
                                     </div>
@@ -107,7 +107,7 @@
                         @foreach($colabs as $colab)
                             <tr>
                                 <td>{{ $colab->colab }}</td>
-                                <td>{{ $colab->debut }} - {{ $colab->fin }}</td>
+                                <td>{{ $colab->debut }} / {{ $colab->fin }}</td>
                                 <td>{{ $colab->details }}</td>
                             </tr>
                         @endforeach

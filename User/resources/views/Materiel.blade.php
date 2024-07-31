@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title h3">Formulaire d'ajout de collaborateur</div>
+                    <div class="card-title h3">Formulaire d'ajout de Materiel</div>
                     <form action="{{ route('SaveMateriel') }}" method="post">
                         @csrf
                         <div class="card-body card-block">
@@ -23,7 +23,7 @@
                             <div class="form-group">
                                 <div class="col-8">
                                     <label for="Durer" class="form-control-label">Duree (en mois)</label>
-                                    <input type="number" min="1" id="Durer" name="durer" placeholder="Entrer le nom" class="form-control">
+                                    <input type="number" min="1" id="Durer" name="durer" placeholder="Entrer la duree" class="form-control">
                                 </div>
                             </div>
                             <div class="py-2"></div>
