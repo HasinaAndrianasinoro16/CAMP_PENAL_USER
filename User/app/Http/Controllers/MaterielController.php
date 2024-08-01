@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materiel;
 use Couchbase\WatchQueryIndexesOptions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MaterielController extends Controller
@@ -38,6 +39,10 @@ class MaterielController extends Controller
     public function MaterielListe()
     {
         try {
+           if(Auth::user()->usertype == 1){
+               $materiel = DB::table('v_materiel')->where('id_materiel','>',1)->where('province','=',Auth::user()->province)->get();
+               return view('MaterielListe')->with('materiels', $materiel);
+           }
             $materiel = DB::table('v_materiel')->where('id_materiel','>',1)->get();
             return view('MaterielListe')->with('materiels', $materiel);
         }catch (\Exception $exception){
@@ -60,6 +65,10 @@ class MaterielController extends Controller
     public function ArgentListe()
     {
         try {
+            if (Auth::user()->usertype == 1){
+                $argent = DB::table('v_don')->where('id_materiel','=',1)->where('province','=',Auth::user()->province)->get();
+                return view('ArgentListe')->with('materiels',$argent);
+            }
             $argent = DB::table('v_don')->where('id_materiel','=',1)->get();
             return view('ArgentListe')->with('materiels',$argent);
         }catch (\Exception $exception){

@@ -77,17 +77,21 @@
                         <a href="/">
                             <i class="fas fa-angle-right"></i>Camp penal</a>
                     </li>
-                    <li>
-                        <a href="{{ route('Collaborateur') }}">
-                            <i class="fas fa-angle-right"></i>Collaborateur</a>
-                    </li>
+                    @if( Auth::user()->usertype == 1)
+                        <li>
+                            <a href="{{ route('Collaborateur') }}">
+                                <i class="fas fa-angle-right"></i>Collaborateur</a>
+                        </li>
+                    @endif
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
                             <i class="fas fa-angle-right"></i>Materiel</a>
                         <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                            <li>
-                                <a href="{{ route('Materiel') }}"><i class="fas fa-angle-right"></i> Ajout</a>
-                            </li>
+                            @if(Auth::user()->usertype == 1 )
+                                <li>
+                                    <a href="{{ route('Materiel') }}"><i class="fas fa-angle-right"></i> Ajout</a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i> Liste</a>
                             </li>
