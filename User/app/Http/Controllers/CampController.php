@@ -264,9 +264,11 @@ class CampController extends Controller
     public function Recensement()
     {
         try {
-            $abouts = DB::table('about_camp')->where('province','=',Auth::user()->
-            province)->get();
-            return view('Recensement')->with('abouts',$abouts);
+            $abouts = DB::table('about_camp')->where('province','=',Auth::user()->province)->get();
+            $total = DB::table('about_camp')->where('province','=',Auth::user()->province)->sum('total');
+            $cultivable = DB::table('about_camp')->where('province','=',Auth::user()->province)->sum('cultivable');
+            $ncultivable = DB::table('about_camp')->where('province','=',Auth::user()->province)->sum('ncultivable');
+            return view('Recensement')->with('abouts',$abouts)->with('total',$total)->with('cultivable',$cultivable)->with('ncultivable',$ncultivable);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
