@@ -42,6 +42,10 @@ Route::get('/Details-Recolte-page/{id?}',[\App\Http\Controllers\CampController::
 Route::get('/Delete-Culture/{id?}',[\App\Http\Controllers\CampController::class,'dropCulture'])->middleware(['auth', 'verified'])->name('DeleteCulture');
 
 Route::get('/Liste-don-argent',[\App\Http\Controllers\MaterielController::class,'ArgentListe'])->middleware(['auth', 'verified'])->name('argentliste');
+
+
+Route::get('/Recensement',[\App\Http\Controllers\CampController::class,'Recensement'])->middleware(['auth', 'verified'])->name('Recensement');
+
 //POST URL11
 Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurController::class,'SaveCollaborateur'])->middleware(['auth', 'verified'])->name('SaveCollaborateur');
 

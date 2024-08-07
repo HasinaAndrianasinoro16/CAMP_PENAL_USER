@@ -259,4 +259,16 @@ class CampController extends Controller
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //    la page d'exportation en pdf
+    public function Recensement()
+    {
+        try {
+            $abouts = DB::table('about_camp')->where('province','=',Auth::user()->
+            province)->get();
+            return view('Recensement')->with('abouts',$abouts);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }

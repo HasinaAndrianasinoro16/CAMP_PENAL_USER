@@ -11,6 +11,11 @@
         <div class="col-lg-12">
             <div class="overview-wrap">
                 <h2 class="title-1">Camp penal</h2>
+                <a href="{{ route('Recensement') }}">
+                    <button class="au-btn au-btn-icon au-btn--green">
+                        <i class="fas fa-print"></i>PDF
+                    </button>
+                </a>
             </div>
             <div class="py-3"></div>
         </div>
