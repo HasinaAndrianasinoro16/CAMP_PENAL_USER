@@ -23,10 +23,20 @@
                         <tbody>
                        @foreach( $recoltes as $recolte)
                            <tr>
-                               <td class="h4" >{{ $recolte->culture }}</td>
-                               <td class="h4">{{ number_format($recolte->quantite,2,',' , '.') }} Tonnes</td>
+                               <td class="h3" >{{ $recolte->culture }}</td>
+                               <td class="h3">{{ number_format($recolte->quantite,2,',' , '.') }} Tonnes</td>
                            </tr>
                        @endforeach
+                        </tbody>
+                    </table>
+                    <table class="table table-top-campaign">
+                        <tbody>
+                        @foreach( $recoltes as $recolte)
+                            <tr>
+                                <td class="h3" >Nombre de prisonnier</td>
+                                <td class="h3">{{ number_format($recolte->prisonnier,1,',' , '.') }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

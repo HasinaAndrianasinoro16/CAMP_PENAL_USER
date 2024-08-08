@@ -47,6 +47,7 @@
                                                 <a href="{{ route('AjoutInfoCamp',['id' => $camp->id]) }}"><button class="btn btn-success" ><i class="fas fa-plus-circle"></i></button></a>
                                                 <a href="{{ route('AjoutRecolte', ['id' => $camp->id]) }}"><button class="btn btn-success"><i class="fas fa-leaf"></i></button></a>
                                             @endif
+                                            <a href="{{ route('Depense',['id' => $camp->id]) }}"><button class="btn btn-success"><i class="fas fa-money-bill-alt"></i> </button> </a>
                                         </td>
                                     </tr>
                                 @endforeach

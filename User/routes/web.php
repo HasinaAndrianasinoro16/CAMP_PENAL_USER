@@ -43,6 +43,7 @@ Route::get('/Delete-Culture/{id?}',[\App\Http\Controllers\CampController::class,
 
 Route::get('/Liste-don-argent',[\App\Http\Controllers\MaterielController::class,'ArgentListe'])->middleware(['auth', 'verified'])->name('argentliste');
 
+Route::get('/Depense/{id?}',[\App\Http\Controllers\CampController::class,'Depense'])->middleware(['auth', 'verified'])->name('Depense');
 
 Route::get('/Recensement',[\App\Http\Controllers\CampController::class,'Recensement'])->middleware(['auth', 'verified'])->name('Recensement');
 

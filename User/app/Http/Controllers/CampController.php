@@ -178,6 +178,7 @@ class CampController extends Controller
                 'culture' => 'required',
                 'quantite' => 'required|numeric',
                 'date' => 'required|date',
+                'prisonier' => 'required|numeric'
             ],[
                 'camp.required' => 'Le champ camp est obligatoire.',
                 'culture.required' => 'Le champ culture est obligatoire.',
@@ -185,6 +186,8 @@ class CampController extends Controller
                 'quantite.numeric' => 'Le champ quantite doit être un nombre.',
                 'date.required' => 'Le champ date est obligatoire.',
                 'date.date' => 'Le champ date doit être une date valide.',
+                'prisonier.required' => 'Le champ prisonier est obligatoire',
+                'prisonier.numeric' => 'Le champ numeric doit etre un nombre'
             ]);
 
             Camp::SaveRecolte($request->camp, $request->culture, $request->quantite, $request->date);
@@ -269,6 +272,16 @@ class CampController extends Controller
             $cultivable = DB::table('about_camp')->where('province','=',Auth::user()->province)->sum('cultivable');
             $ncultivable = DB::table('about_camp')->where('province','=',Auth::user()->province)->sum('ncultivable');
             return view('Recensement')->with('abouts',$abouts)->with('total',$total)->with('cultivable',$cultivable)->with('ncultivable',$ncultivable);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour afficher la page des details des depense par camp
+    public function Depense($id)
+    {
+        try {
+            return view('Depense');
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }

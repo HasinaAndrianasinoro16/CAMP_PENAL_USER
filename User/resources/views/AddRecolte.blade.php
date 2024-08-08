@@ -110,8 +110,14 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-8">
+                                    <label for="prisonier" class="form-control-label">Prisonier sur le champ</label>
+                                    <input type="number" min="0" id="prisonier" name="prisonier" placeholder="10.2" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-8">
                                     <label for="quantite" class="form-control-label">Quantité (Tonnes)</label>
-                                    <input type="text" id="quantite" name="quantite" placeholder="10.2" class="form-control">
+                                    <input type="text" id="quantite" name="quantite" placeholder="10" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
