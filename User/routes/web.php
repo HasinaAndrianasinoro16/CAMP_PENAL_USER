@@ -47,7 +47,9 @@ Route::get('/Depense/{id?}',[\App\Http\Controllers\CampController::class,'Depens
 
 Route::get('/Recensement',[\App\Http\Controllers\CampController::class,'Recensement'])->middleware(['auth', 'verified'])->name('Recensement');
 
-//POST URL11
+//POST URL
+Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
+
 Route::post('/Form-Ajout-Collaborateur',[\App\Http\Controllers\CollaborateurController::class,'SaveCollaborateur'])->middleware(['auth', 'verified'])->name('SaveCollaborateur');
 
 Route::post('/Form-Ajout-Materiel',[\App\Http\Controllers\MaterielController::class,'SaveMateriel'])->middleware(['auth', 'verified'])->name('SaveMateriel');

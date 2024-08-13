@@ -78,5 +78,25 @@ class Camp extends Model
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //fonction pour enregistrer les sortie de culture
+    public static function SaveSortie($camp, $culture, $quantite, $date)
+    {
+        try {
+            $insert = DB::table('stockculture')
+                ->insert([
+                    'camp' => $camp,
+                    'culture' => $culture, // Assurez-vous d'insérer la culture
+                    'quantite' => $quantite,
+                    'datestock' => $date,
+                    'etat' => 1,
+                    'prisonnier' => 0
+                ]);
+            return $insert;
+        } catch (\Exception $exception) {
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
     use HasFactory;
 }

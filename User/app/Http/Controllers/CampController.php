@@ -24,7 +24,6 @@ class CampController extends Controller
         }
     }
 
-
     //Controller pour afficher les details d'un camp
     public function DetailsCamp($id)
     {
@@ -32,7 +31,8 @@ class CampController extends Controller
             $camp = DB::table('v_camp')->where('id','=',$id)->first();
             $culture = DB::table('v_campculture')->where('id_camp','=',$id)->get();
             $colabs = DB::table('v_campcollab')->where('id_camp','=',$id)->get();
-            return view('CampDetails')->with('camps',$camp)->with('cultures',$culture)->with('colabs',$colabs);
+            $abouts = DB::table('about_camp')->where('id_camp','=',$id)->get();
+            return view('CampDetails')->with('camps',$camp)->with('cultures',$culture)->with('colabs',$colabs)->with('abouts',$abouts);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
@@ -173,23 +173,28 @@ class CampController extends Controller
     public function SaveRecolte(Request $request)
     {
         try {
+            $limite = 1;
+
             $request->validate([
                 'camp' => 'required',
                 'culture' => 'required',
-                'quantite' => 'required|numeric',
+                'quantite' => "required|numeric|min:$limite",  // Double quotes ici
                 'date' => 'required|date',
-                'prisonier' => 'required|numeric'
-            ],[
+                'prisonier' => "required|numeric|min:$limite",  // Double quotes ici
+            ], [
                 'camp.required' => 'Le champ camp est obligatoire.',
                 'culture.required' => 'Le champ culture est obligatoire.',
                 'quantite.required' => 'Le champ quantite est obligatoire.',
                 'quantite.numeric' => 'Le champ quantite doit être un nombre.',
                 'date.required' => 'Le champ date est obligatoire.',
                 'date.date' => 'Le champ date doit être une date valide.',
-                'prisonier.required' => 'Le champ prisonier est obligatoire',
-                'prisonier.numeric' => 'Le champ numeric doit etre un nombre'
+                'prisonier.required' => 'Le champ prisonier est obligatoire.',
+                'prisonier.numeric' => 'Le champ prisonier doit être un nombre.',
+                'quantite.min' => "La quantité ne peut pas être inférieure à $limite.",  // Double quotes ici
+                'prisonier.min' => "Le nombre de prisonniers ne peut pas être inférieur à $limite.",  // Double quotes ici
             ]);
 
+            // Assurez-vous que la méthode SaveRecolte existe dans le modèle Camp
             Camp::SaveRecolte($request->camp, $request->culture, $request->quantite, $request->date);
 
             return redirect()->back()->with('success', 'Récolte enregistrée avec succès');
@@ -197,6 +202,7 @@ class CampController extends Controller
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
+
 
 
     //controller pour afficher le calendrier de recolte
@@ -233,15 +239,17 @@ class CampController extends Controller
     public function AddCultureCamp(Request $request)
     {
         try {
+            $limite = 1;
             $request->validate([
                 'camp' => 'required',
                 'cultures' => 'required',
-                'supperficie' => 'required|numeric',
+                'supperficie' => "required|numeric|min:$limite",
             ],[
                 'camp.required' => 'Le champ camp est obligatoire.',
                 'cultures.required' => 'Le champ cultures est obligatoire.',
                 'supperficie.required' => 'Le champ superficie est obligatoire.',
                 'supperficie.numeric' => 'Le champ superficie doit être un nombre.',
+                'supperficie.min' => "La supperficie ne doit pas etre inferrieur $limite",
             ]);
 
             Camp::SaveCulture($request->camp, $request->cultures, $request->supperficie);
@@ -281,9 +289,56 @@ class CampController extends Controller
     public function Depense($id)
     {
         try {
-            return view('Depense');
+            $donArgent = DB::table('v_don')->where('id_camp','=',$id)->where('id_materiel','=',1)->get();
+            $totalArgent = DB::table('v_don')->where('id_camp','=',$id)->where('id_materiel','=',1)->sum('quantite');
+            $estimation = DB::table('estimation')->where('id_camp','=',$id)->get();
+            $totalestimation = DB::table('estimation')->where('id_camp','=',$id)->sum('estimation_prix');
+            $budget = 0;
+            $rendrement = abs($totalestimation - ($totalArgent+$budget));
+            return view('Depense')->with('dons',$donArgent)->with('totaldon',$totalArgent)->with('estimations',$estimation)->with('totalestimation',$totalestimation)->with('budget',$budget)->with('rendement',$rendrement);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
     }
+
+    //controller pour le formulaire d'ajout de sortie de culture
+    public function SortieCulture(Request $request)
+    {
+        try {
+            // Récupération de la quantité maximale autorisée avant la validation
+            $max = DB::table('v_stock')
+                ->where('id_camp', '=', $request->camp)
+                ->where('id_culture', '=', $request->culture)
+                ->value('total'); // Utilisation de value pour récupérer directement le total
+
+            $limite = 1;
+
+            // Validation avec la règle personnalisée pour 'quantite'
+            $request->validate([
+                'camp' => 'required',
+                'culture' => 'required',
+                'quantite' => "required|numeric|min:$limite|max:$max",  // Utilisation de $max ici
+                'date' => 'required|date',
+            ], [
+                'camp.required' => 'Le champ camp est obligatoire.',
+                'culture.required' => 'Le champ culture est obligatoire.',
+                'quantite.required' => 'Le champ quantite est obligatoire.',
+                'quantite.numeric' => 'Le champ quantite doit être un nombre.',
+                'date.required' => 'Le champ date est obligatoire.',
+                'date.date' => 'Le champ date doit être une date valide.',
+                'quantite.min' => "La quantité ne peut pas être inférieure à $limite.",
+                'quantite.max' => "La quantité ne doit pas dépasser $max.", // Message d'erreur personnalisé
+            ]);
+
+            // Appel à la méthode SaveSortie pour enregistrer la sortie de culture
+            Camp::SaveSortie($request->camp, $request->culture, $request->quantite, $request->date);
+
+            return redirect()->back()->with('success3', 'Sortie de culture enregistrée avec succès');
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
+    }
+
+
+
 }

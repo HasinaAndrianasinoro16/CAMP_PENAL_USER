@@ -25,6 +25,7 @@
             margin-bottom: 20px;
         }
         button {
+            margin:25px;
             padding: 10px 20px;
             font-size: 16px;
             color: #fff;

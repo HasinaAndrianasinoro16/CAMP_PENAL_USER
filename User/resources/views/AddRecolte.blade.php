@@ -137,5 +137,51 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title h3">Formulaire de sortie de recolte</div>
+                    @if (session('success3'))
+                        <div class="alert alert-success w-6">
+                            {{ session('success3') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('FormAjoutSortieCulture') }}" method="post">
+                        @csrf
+                        <input type="hidden" value="{{ request()->segment(2) }}" name="camp">
+                        <div class="card-body card-block">
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <label for="culture" class="form-control-label">Culture</label>
+                                    <select class="form-control" name="culture" id="culture">
+                                        @foreach($cultures as $culture)
+                                            <option value="{{ $culture->id_culture }}"> {{ $culture->culture }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <label for="quantite" class="form-control-label">Quantité (Tonnes)</label>
+                                    <input type="text" id="quantite" name="quantite" placeholder="10" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <label for="recolte" class="form-control-label">Date de récolte</label>
+                                    <input type="date" id="recolte" name="date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="py-2"></div>
+                            <div class="form-group">
+                                <div class="col-11">
+                                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check"></i> Enregistrer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

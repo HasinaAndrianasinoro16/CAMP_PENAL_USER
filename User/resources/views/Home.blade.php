@@ -25,7 +25,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title h3">Liste utilisateur</div>
+                            <div class="card-title h3">Liste des camp penals</div>
                             <table id="example" class="table table-hover" style="width:100%">
                                 <thead>
                                 <tr>
@@ -59,6 +59,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="col-lg-12">
             <div class="card">

@@ -14,7 +14,7 @@
                 <div class="p">
                     voici l'estimation des recoltes prochaine de ce camp :
                     @foreach( $estimations as $estimation )
-                        <span class="text-success">{{ $estimation->culture }}</span> <code>{{ number_format($estimation->moyenne_quantite,2,',','.') }} Tonees</code>,
+                        <span class="text-success">{{ $estimation->culture }}</span> <code>{{ number_format($estimation->moyenne_quantite,2,',','.') }} Tonnes</code>,
                     @endforeach
                 </div>
                 <div class="py-3"></div>

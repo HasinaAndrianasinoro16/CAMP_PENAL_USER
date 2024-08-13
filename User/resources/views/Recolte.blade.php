@@ -36,20 +36,10 @@
                     {
                         title: "recolte {{ $recolte->camp }}",
                         start: '{{ $recolte->datestock }}',
-                        // extendedProps: {
-                        //     details: "10h00 - Accueil\n11h00 - Session de bienvenue\n14h00 - Pause déjeuner"
-                        // },
                         url: '{{ route('DetailsRecolte',['id' => $recolte->id_stock])}} '
                     },
                     @endforeach
                 ],
-                // eventDidMount: function(info) {
-                //     var details = info.event.extendedProps.details;
-                //     var element = document.createElement('div');
-                //     element.innerHTML = '<strong>Détails :</strong><br>' + details.replace(/\n/g, '<br>');
-                //     element.style.paddingTop = '10px'; // Stylez comme vous le souhaitez
-                //     info.el.appendChild(element);
-                // }
             });
 
             calendar.render();
