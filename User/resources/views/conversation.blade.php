@@ -50,6 +50,15 @@
 
                             </div>
                             <div class="au-chat-textfield">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <form action="{{ route('send') }}" method="post" class="au-form-icon">
                                     @csrf
                                     <textarea  name="contents" placeholder="Ecriver votre message..." class="au-input au-input--full form-control" rows="2"></textarea>
