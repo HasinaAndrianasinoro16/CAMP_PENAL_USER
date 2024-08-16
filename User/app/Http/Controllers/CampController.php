@@ -294,6 +294,7 @@ class CampController extends Controller
             $estimation = DB::table('estimation')->where('id_camp','=',$id)->get();
             $totalestimation = DB::table('estimation')->where('id_camp','=',$id)->sum('estimation_prix');
             $budget = 0;
+
             $rendrement = abs($totalestimation - ($totalArgent+$budget));
             return view('Depense')->with('dons',$donArgent)->with('totaldon',$totalArgent)->with('estimations',$estimation)->with('totalestimation',$totalestimation)->with('budget',$budget)->with('rendement',$rendrement);
         }catch (\Exception $exception){

@@ -47,6 +47,11 @@ Route::get('/Depense/{id?}',[\App\Http\Controllers\CampController::class,'Depens
 
 Route::get('/Recensement',[\App\Http\Controllers\CampController::class,'Recensement'])->middleware(['auth', 'verified'])->name('Recensement');
 
+Route::get('/Message',[\App\Http\Controllers\MessageController::class,'Message'])->middleware(['auth', 'verified'])->name('message');
+
+Route::get('/conversion/{user?}',[\App\Http\Controllers\MessageController::class,'Conversation'])->middleware(['auth', 'verified'])->name('Conversation');
+
+
 //POST URL
 Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
 
@@ -59,6 +64,8 @@ Route::post('/Form-Ajout-CampCollab',[\App\Http\Controllers\CampController::clas
 Route::post('/Form-Ajout-Don',[\App\Http\Controllers\CampController::class,'Dons'])->middleware(['auth', 'verified'])->name('Dons');
 
 Route::post('/Form-Ajout-recolte',[\App\Http\Controllers\CampController::class,'SaveRecolte'])->middleware(['auth', 'verified'])->name('SaveRecolte');
+
+Route::post('/send',[\App\Http\Controllers\MessageController::class,'sendMessage'])->middleware(['auth', 'verified'])->name('send');
 
 Route::post('/Form-Ajout-culture-camp',[\App\Http\Controllers\CampController::class,'AddCultureCamp'])->middleware(['auth', 'verified'])->name('SaveCulture');
 Route::middleware('auth')->group(function () {
