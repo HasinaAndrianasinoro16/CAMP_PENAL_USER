@@ -190,12 +190,12 @@ class CampController extends Controller
                 'date.date' => 'Le champ date doit être une date valide.',
                 'prisonier.required' => 'Le champ prisonier est obligatoire.',
                 'prisonier.numeric' => 'Le champ prisonier doit être un nombre.',
-                'quantite.min' => "La quantité ne peut pas être inférieure à $limite.",  // Double quotes ici
-                'prisonier.min' => "Le nombre de prisonniers ne peut pas être inférieur à $limite.",  // Double quotes ici
+                'quantite.min' => "La quantité ne peut pas être inférieure à $limite.",
+                'prisonier.min' => "Le nombre de prisonniers ne peut pas être inférieur à $limite.",
             ]);
 
-            // Assurez-vous que la méthode SaveRecolte existe dans le modèle Camp
             Camp::SaveRecolte($request->camp, $request->culture, $request->quantite, $request->date);
+            Camp::saveEstimation($request->camp, $request->culture, $request->quantite, $request->date,0);
 
             return redirect()->back()->with('success', 'Récolte enregistrée avec succès');
         } catch (\Exception $exception) {
@@ -285,22 +285,100 @@ class CampController extends Controller
         }
     }
 
-    //controller pour afficher la page des details des depense par camp
+    //controller pour afficher la page des details des depense par camp en general
     public function Depense($id)
     {
         try {
+            $years = DB::table('stockculture')
+                ->selectRaw('DISTINCT EXTRACT(YEAR FROM datestock) as year')
+                ->orderBy('year', 'desc')
+                ->get();
+            $month = DB::table('stockculture')
+                ->selectRaw('DISTINCT EXTRACT(MONTH FROM datestock) as month')
+                ->orderBy('month', 'desc')
+                ->get();
             $donArgent = DB::table('v_don')->where('id_camp','=',$id)->where('id_materiel','=',1)->get();
             $totalArgent = DB::table('v_don')->where('id_camp','=',$id)->where('id_materiel','=',1)->sum('quantite');
-            $estimation = DB::table('estimation')->where('id_camp','=',$id)->get();
-            $totalestimation = DB::table('estimation')->where('id_camp','=',$id)->sum('estimation_prix');
-            $budget = 0;
-
-            $rendrement = abs($totalestimation - ($totalArgent+$budget));
-            return view('Depense')->with('dons',$donArgent)->with('totaldon',$totalArgent)->with('estimations',$estimation)->with('totalestimation',$totalestimation)->with('budget',$budget)->with('rendement',$rendrement);
+            $estimation = DB::table('stock_estimation')->where('camp','=',$id)->get();
+            $entrer = DB::table('stock_estimation')->where('camp','=',$id)->where('etat','=',0)->sum('estimation');
+            $sortie = DB::table('stock_estimation')->where('camp','=',$id)->where('etat','=',1)->sum('estimation');
+            $totalestimation = abs($entrer - $sortie);
+            $rendrement = abs($totalestimation - $totalArgent);
+            return view('Depense')->with('dons',$donArgent)->with('totaldon',$totalArgent)->with('estimations',$estimation)->with('totalestimation',$totalestimation)->with('rendement',$rendrement)->with('years',$years)->with('months',$month);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
     }
+    //fonction pour recuperer les depense d'un camp avec une date
+    public function DepenseDate(Request $request)
+    {
+        try {
+            // Validation des champs requis
+            $request->validate([
+                'camp' => 'required',
+                'year' => 'required|integer',
+                'month' => 'required|integer',
+            ]);
+
+            // Récupération des années disponibles
+            $years = DB::table('stockculture')->selectRaw('DISTINCT EXTRACT(YEAR FROM datestock) as year')
+                ->orderBy('year', 'desc')
+                ->get();
+
+            // Récupération des mois disponibles
+            $month = DB::table('stockculture')->selectRaw('DISTINCT EXTRACT(MONTH FROM datestock) as month')
+                ->orderBy('month', 'desc')
+                ->get();
+
+            // Récupération des estimations pour le camp, l'année et le mois spécifiés
+            $estimations = DB::table('stock_estimation')->where('camp', '=', $request->camp)
+                ->whereYear('datestock', '=', $request->year)
+                ->whereMonth('datestock', '=', $request->month)
+                ->get();
+
+            // Récupération des dons en argent
+            $donArgent = DB::table('v_don')->where('id_camp', '=', $request->camp)->where('id_materiel', '=', 1)
+                ->whereYear('datedon', '=', $request->year)
+                ->whereMonth('datedon', '=', $request->month)
+                ->get();
+
+            // Calcul du total des dons en argent
+            $totalArgent = DB::table('v_don')->where('id_camp', '=', $request->camp)->where('id_materiel', '=', 1)
+                ->whereYear('datedon', '=', $request->year)
+                ->whereMonth('datedon', '=', $request->month)
+                ->sum('quantite');
+
+            // Calcul des entrées et sorties
+            $entrer = DB::table('stock_estimation')->where('camp', '=', $request->camp)->where('etat', '=', 0)
+                ->whereYear('datestock', '=', $request->year)
+                ->whereMonth('datestock', '=', $request->month)
+                ->sum('estimation');
+
+            $sortie = DB::table('stock_estimation')->where('camp', '=', $request->camp)->where('etat', '=', 1)
+                ->whereYear('datestock', '=', $request->year)
+                ->whereMonth('datestock', '=', $request->month)
+                ->sum('estimation');
+
+            // Calcul du total des estimations et du rendement
+            $totalestimation = abs($entrer - $sortie);
+            $rendement = abs($totalestimation - $totalArgent);
+
+            // Retour de la vue avec les données
+            return view('DepenseDate', [
+                'years' => $years,
+                'months' => $month,
+                'estimations' => $estimations,
+                'camp' => $request->camp,
+                'donArgent' => $donArgent,
+                'totalArgent' => $totalArgent,
+                'totalEstimation' => $totalestimation,
+                'rendement' => $rendement,
+            ]);
+        } catch (\Exception $exception) {
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
 
     //controller pour le formulaire d'ajout de sortie de culture
     public function SortieCulture(Request $request)
@@ -328,17 +406,19 @@ class CampController extends Controller
                 'date.required' => 'Le champ date est obligatoire.',
                 'date.date' => 'Le champ date doit être une date valide.',
                 'quantite.min' => "La quantité ne peut pas être inférieure à $limite.",
-                'quantite.max' => "La quantité ne doit pas dépasser $max.", // Message d'erreur personnalisé
+                'quantite.max' => "La quantité ne doit pas dépasser $max.",
             ]);
 
-            // Appel à la méthode SaveSortie pour enregistrer la sortie de culture
             Camp::SaveSortie($request->camp, $request->culture, $request->quantite, $request->date);
+            Camp::saveEstimation($request->camp, $request->culture, $request->quantite, $request->date,1);
 
             return redirect()->back()->with('success3', 'Sortie de culture enregistrée avec succès');
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
+
+
 
 
 

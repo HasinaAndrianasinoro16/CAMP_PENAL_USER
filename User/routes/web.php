@@ -67,6 +67,8 @@ Route::post('/Form-Ajout-recolte',[\App\Http\Controllers\CampController::class,'
 
 Route::post('/send',[\App\Http\Controllers\MessageController::class,'sendMessage'])->middleware(['auth', 'verified'])->name('send');
 
+Route::post('/Depense-date',[\App\Http\Controllers\CampController::class,'DepenseDate'])->middleware(['auth', 'verified'])->name('DepenseDate');
+
 Route::post('/Form-Ajout-culture-camp',[\App\Http\Controllers\CampController::class,'AddCultureCamp'])->middleware(['auth', 'verified'])->name('SaveCulture');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

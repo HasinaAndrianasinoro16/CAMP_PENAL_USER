@@ -98,5 +98,34 @@ class Camp extends Model
         }
     }
 
+    //fonction pour enregistrer une estimation
+
+    public static function saveEstimation($camp, $culture, $quantite, $date,$etat)
+    {
+        try {
+            $cultureData = DB::table('culture')->where('id', $culture)->first();
+
+            if (!$cultureData) {
+                throw new \Exception("Culture non trouvée pour l'ID donné.");
+            }
+
+            $estimation = $quantite * $cultureData->prixunitaire;
+
+            DB::table('stock_estimation')->insert([
+                'camp' => $camp,
+                'culture' => $culture,
+                'nom' => $cultureData->nom,
+                'quantite' => $quantite,
+                'estimation' => $estimation,
+                'datestock' => $date,
+                'etat' => $etat
+            ]);
+
+        } catch (\Exception $exception) {
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+
     use HasFactory;
 }
