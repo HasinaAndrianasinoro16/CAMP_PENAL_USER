@@ -377,6 +377,8 @@ class CampController extends Controller
             $totalestimation = abs($entrer - $sortie);
             $rendement = abs($totalestimation - $totalArgent);
 
+            $nom = DB::table('camp')->where('id','=',$request->camp)->first();
+
             // Retour de la vue avec les données
             return view('DepenseDate', [
                 'years' => $years,
@@ -387,6 +389,7 @@ class CampController extends Controller
                 'totalArgent' => $totalArgent,
                 'totalEstimation' => $totalestimation,
                 'rendement' => $rendement,
+                'nom' => $nom->nom,
             ]);
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());

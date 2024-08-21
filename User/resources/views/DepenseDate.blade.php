@@ -4,6 +4,9 @@
         <div class="col-lg-12">
             <div class="overview-wrap">
                 <h2 class="title-1">Camp pénal</h2>
+                    <button onclick="addPdf('export')" class="au-btn au-btn-icon au-btn--green">
+                        <i class="fas fa-print"></i>PDF
+                    </button>
             </div>
             <div class="py-3"></div>
         </div>
@@ -47,8 +50,8 @@
             </div>
         </div>
     </div>
-
-    <section class="statistic">
+<div id="export">
+    <section class="statistic" id="">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
                 <div class="row">
@@ -136,4 +139,28 @@
             </div>
         </div>
     </div>
+</div>
+    <script src="{{ asset('assets/js/html2pdf.bundle.min.js') }}"></script>
+    <script>
+        function addPdf(id) {
+            var element = document.getElementById(id);
+            element.style.padding = '20px';
+            element.style.fontSize = "small";
+
+            var now = new Date();
+            var dateStr = now.getFullYear() + "-" +
+                ("0" + (now.getMonth() + 1)).slice(-2) + "-" +
+                ("0" + now.getDate()).slice(-2) + "_" +
+                ("0" + now.getHours()).slice(-2) + "-" +
+                ("0" + now.getMinutes()).slice(-2) + "-" +
+                ("0" + now.getSeconds()).slice(-2);
+
+            var fileName = "rendement&rapport_mensuel_{{$nom}}_" + dateStr + ".pdf";
+
+            html2pdf().from(element).set({
+                filename: fileName,
+                jsPDF: {unit: 'pt', format: 'a4', orientation: 'landscape'}
+            }).save();
+        }
+    </script>
 @endsection
