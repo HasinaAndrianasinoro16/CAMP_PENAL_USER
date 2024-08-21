@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\CultureImport;
 use App\Models\Culture;
 use App\Models\Messages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CultureController extends Controller
 {
@@ -86,6 +88,7 @@ class CultureController extends Controller
         }
     }
 
+    //supprimer une culture
     public function DropCulture($id)
     {
         try {
@@ -93,6 +96,18 @@ class CultureController extends Controller
             return redirect()->back();
         }catch (\Exception $exception){
             throw new \Exception( $exception->getMessage());
+        }
+    }
+
+    //fonction pour sauvegarder des cultures depuis un fichier excel
+    public function ImportCulture(Request $request)
+    {
+        try {
+            $file = $request->file('csv_file');
+            Excel::import(new CultureImport(), $file);
+            return redirect()->back()->with('success','Les cultures on bien ete enregistrer');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors(['error'=> 'Une erreur s\'est produite:' . $exception->getMessage()]);
         }
     }
 }

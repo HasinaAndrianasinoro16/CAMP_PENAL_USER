@@ -30,7 +30,7 @@
                                 <thead>
                                 <tr>
                                     <th>Nom</th>
-                                    <th>Superficie (ha)</th>
+                                    <th>Superficie cultivees(ha)</th>
                                     <th>type de terre</th>
                                     <th> -- </th>
                                 </tr>

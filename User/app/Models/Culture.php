@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Culture extends Model
 {
     protected $table = 'culture';
-    protected $fillable = ['nom', 'prixunitaire', 'sol'];
+    protected $fillable = ['id','nom', 'prixunitaire', 'sol'];
     public $timestamps = false;
 
     //fonction pour l'id automatiqur de culture

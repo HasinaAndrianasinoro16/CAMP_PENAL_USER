@@ -84,6 +84,9 @@ Route::post('/Ajout-culture',[\App\Http\Controllers\CultureController::class,'Ad
 Route::post('/Modifier-culture',[\App\Http\Controllers\CultureController::class,'FormUpdateCulture'])->middleware(['auth', 'verified'])->name('ModifierCulture');
 
 Route::post('/Form-Ajout-culture-camp',[\App\Http\Controllers\CampController::class,'AddCultureCamp'])->middleware(['auth', 'verified'])->name('SaveCulture');
+
+Route::post('/import-Culure',[\App\Http\Controllers\CultureController::class,'ImportCulture'])->middleware(['auth', 'verified'])->name('ImportCulture');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
