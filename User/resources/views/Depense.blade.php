@@ -32,7 +32,7 @@
                                             <label for="years" class="form-label">Mois</label>
                                             <select class="form-control" name="month" id="month">
                                                 @foreach( $months as $month )
-                                                    <option value="{{ $month->month }}">{{ \Carbon\Carbon::create()->month($month->month)->format('F') }}</option>
+                                                    <option value="{{ $month->month }}">{{ \Carbon\Carbon::create()->month($month->month)->translatedFormat('F') }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -122,14 +122,15 @@
                                 <td>{{ $estimation->quantite }} T</td>
                                 <td>{{ number_format($estimation->estimation,2,',','.') }} Ar</td>
                                 @if( $estimation->etat == 0 )
-                                    <td class="text-success" >Entrer de stock le {{ $estimation->datestock }}</td>
+                                    <td class="text-success">Entrée de stock le {{ \Carbon\Carbon::make($estimation->datestock)->format('d-m-Y') }}</td>
                                 @else
-                                    <td class="text-danger">Sortie de stock le {{ $estimation->datestock }}</td>
+                                    <td class="text-danger">Sortie de stock le {{ \Carbon\Carbon::make($estimation->datestock)->format('d-m-Y') }}</td>
                                 @endif
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    {{ $estimations->onEachSide(1)->links() }}
                 </div>
             </div>
         </div>

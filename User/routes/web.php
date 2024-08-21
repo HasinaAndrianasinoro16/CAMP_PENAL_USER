@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
+
+App::setLocale('fr');
 
 //GET URL
 Route::get('/', [\App\Http\Controllers\CampController::class,'Camp'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -51,6 +54,13 @@ Route::get('/Message',[\App\Http\Controllers\MessageController::class,'Message']
 
 Route::get('/conversion/{user?}',[\App\Http\Controllers\MessageController::class,'Conversation'])->middleware(['auth', 'verified'])->name('Conversation');
 
+Route::get('/Culture-liste',[\App\Http\Controllers\CultureController::class,'Culture'])->middleware(['auth', 'verified'])->name('Culture');
+
+Route::get('/Formluaire-Culture',[\App\Http\Controllers\CultureController::class,'NewCulture'])->middleware(['auth', 'verified'])->name('NewCulture');
+
+Route::get('/Update-culture/{id?}',[\App\Http\Controllers\CultureController::class,'updateCulture'])->middleware(['auth', 'verified'])->name('UpdateCulture');
+
+Route::get('/supprimer-culture/{id?}',[\App\Http\Controllers\CultureController::class,'DropCulture'])->middleware(['auth', 'verified'])->name('dropCulture');
 
 //POST URL
 Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
@@ -68,6 +78,10 @@ Route::post('/Form-Ajout-recolte',[\App\Http\Controllers\CampController::class,'
 Route::post('/send',[\App\Http\Controllers\MessageController::class,'sendMessage'])->middleware(['auth', 'verified'])->name('send');
 
 Route::post('/Depense-date',[\App\Http\Controllers\CampController::class,'DepenseDate'])->middleware(['auth', 'verified'])->name('DepenseDate');
+
+Route::post('/Ajout-culture',[\App\Http\Controllers\CultureController::class,'AddCulture'])->middleware(['auth', 'verified'])->name('AjoutCulture');
+
+Route::post('/Modifier-culture',[\App\Http\Controllers\CultureController::class,'FormUpdateCulture'])->middleware(['auth', 'verified'])->name('ModifierCulture');
 
 Route::post('/Form-Ajout-culture-camp',[\App\Http\Controllers\CampController::class,'AddCultureCamp'])->middleware(['auth', 'verified'])->name('SaveCulture');
 Route::middleware('auth')->group(function () {

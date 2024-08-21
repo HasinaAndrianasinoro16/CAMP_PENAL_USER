@@ -69,10 +69,6 @@
                         <a href="{{route('CalendrierRecolte')}}">
                             <i class="fas fa-angle-right"></i>Recolte</a>
                     </li>
-{{--                    <li>--}}
-{{--                        <a href="/">--}}
-{{--                            <i class="fas fa-angle-right"></i>Liste des cultures</a>--}}
-{{--                    </li>--}}
                     <li>
                         <a href="/">
                             <i class="fas fa-angle-right"></i>Camp penal</a>
@@ -81,6 +77,10 @@
                         <li>
                             <a href="{{ route('Collaborateur') }}">
                                 <i class="fas fa-angle-right"></i>Collaborateur</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('Culture') }}">
+                                <i class="fas fa-angle-right"></i>Liste des cultures</a>
                         </li>
                     @endif
                     <li class="has-sub">
@@ -120,7 +120,12 @@
                         </div>
                         <div class="header-button2">
                             <div class="header-button-item">
-                                <a href="{{ route('message') }}" style="color: #fff;"><i class="zmdi zmdi-comment"></i></a>
+                                <a href="{{ route('message') }}" style="color: #fff;">
+                                    <i class="zmdi zmdi-comment"></i>
+                                    @if( \App\Models\Messages::CountMessage() > 0 )
+                                        <sup class="text-success" >({{ \App\Models\Messages::CountMessage() }})</sup>
+                                    @endif
+                                </a>
                             </div>
                             <div class="header-button-item mr-0 js-sidebar-btn">
                                 <i class="zmdi zmdi-menu"></i>
@@ -132,15 +137,14 @@
                                             <i class="zmdi zmdi-account"></i>Account </a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <x-dropdown-link :href="route('logout')"
-                                                         onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                            <i class="zmdi zmdi-power"></i>
-                                            {{ __('sign out') }}
-                                        </x-dropdown-link>
-                                    </form>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="zmdi zmdi-power"></i>
+                                                {{ __('Sign out') }}
+                                            </button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -163,14 +167,13 @@
                     <h4 class="name">{{ Auth::user()->name }}</h4>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-dropdown-link :href="route('logout')"
-                                         onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                        <button type="submit" class="dropdown-item">
                             <i class="zmdi zmdi-power"></i>
-                            {{ __('sign out') }}
-                        </x-dropdown-link>
+                            {{ __('Sign out') }}
+                        </button>
                     </form>
-{{--                    <a href="#">Sign out</a>--}}
+
+                    {{--                    <a href="#">Sign out</a>--}}
                 </div>
                 <nav class="navbar-sidebar2">
                     <ul class="list-unstyled navbar__list">
@@ -178,25 +181,33 @@
                             <a href="{{route('CalendrierRecolte')}}">
                                 <i class="fas fa-angle-right"></i>Recolte</a>
                         </li>
-{{--                        <li>--}}
-{{--                            <a href="/">--}}
-{{--                                <i class="fas fa-angle-right"></i>Liste des cultures</a>--}}
-{{--                        </li>--}}
+                        <li>
+                            <a href="/">
+                                <i class="fas fa-angle-right"></i>Liste des cultures</a>
+                        </li>
                         <li>
                             <a href="/">
                                 <i class="fas fa-angle-right"></i>Camp penal</a>
                         </li>
-                        <li>
-                            <a href="{{ route('Collaborateur') }}">
-                                <i class="fas fa-angle-right"></i>Collaborateur</a>
-                        </li>
+                        @if( Auth::user()->usertype == 1)
+                            <li>
+                                <a href="{{ route('Collaborateur') }}">
+                                    <i class="fas fa-angle-right"></i>Collaborateur</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('Culture') }}">
+                                    <i class="fas fa-angle-right"></i>Liste des cultures</a>
+                            </li>
+                        @endif
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-angle-right"></i>Materiel</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="{{ route('Materiel') }}"><i class="fas fa-angle-right"></i> Ajout</a>
-                                </li>
+                                @if(Auth::user()->usertype == 1 )
+                                    <li>
+                                        <a href="{{ route('Materiel') }}"><i class="fas fa-angle-right"></i> Ajout</a>
+                                    </li>
+                                @endif
                                 <li>
                                     <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i> Liste</a>
                                 </li>

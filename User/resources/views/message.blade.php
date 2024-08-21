@@ -19,16 +19,24 @@
                         <p>Message de {{ Auth::user()->name }}</p>
                     </div>
                     <div class="au-task-list js-scrollbar3">
-                        @foreach( $users as $user )
+                        @foreach($users as $user)
                             <div class="au-task__item au-task__item--success">
                                 <div class="au-task__item-inner">
                                     <h5 class="task">
-                                        <a href="{{ route('Conversation', ['user' => $user->id]) }}">{{ $user->name }}</a>
+                                        <a href="{{ route('Conversation', ['user' => $user->id]) }}">
+                                            {{ $user->name }}
+                                            @if( $unreadMessages[$user->id]->count() > 0 )
+                                                <span class="text-warning">
+                                                    ({{ $unreadMessages[$user->id]->count()}} message(s) non lu(s))
+                                                </span>
+                                            @endif
+                                        </a>
                                     </h5>
                                     <span class="time">{{ $user->position }}</span>
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
                     <div class="au-task__footer">
                         <button class="au-btn au-btn-load js-load-btn">Afficher plus de contact</button>

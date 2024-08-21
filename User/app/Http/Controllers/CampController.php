@@ -293,22 +293,36 @@ class CampController extends Controller
                 ->selectRaw('DISTINCT EXTRACT(YEAR FROM datestock) as year')
                 ->orderBy('year', 'desc')
                 ->get();
+
             $month = DB::table('stockculture')
                 ->selectRaw('DISTINCT EXTRACT(MONTH FROM datestock) as month')
                 ->orderBy('month', 'desc')
                 ->get();
-            $donArgent = DB::table('v_don')->where('id_camp','=',$id)->where('id_materiel','=',1)->get();
-            $totalArgent = DB::table('v_don')->where('id_camp','=',$id)->where('id_materiel','=',1)->sum('quantite');
-            $estimation = DB::table('stock_estimation')->where('camp','=',$id)->get();
-            $entrer = DB::table('stock_estimation')->where('camp','=',$id)->where('etat','=',0)->sum('estimation');
-            $sortie = DB::table('stock_estimation')->where('camp','=',$id)->where('etat','=',1)->sum('estimation');
+
+            $donArgent = DB::table('v_don')->where('id_camp', '=', $id)->where('id_materiel', '=', 1)->get();
+            $totalArgent = DB::table('v_don')->where('id_camp', '=', $id)->where('id_materiel', '=', 1)->sum('quantite');
+
+            $estimation = DB::table('stock_estimation')->where('camp', '=', $id)->paginate(5);
+
+            $entrer = DB::table('stock_estimation')->where('camp', '=', $id)->where('etat', '=', 0)->sum('estimation');
+            $sortie = DB::table('stock_estimation')->where('camp', '=', $id)->where('etat', '=', 1)->sum('estimation');
             $totalestimation = abs($entrer - $sortie);
-            $rendrement = abs($totalestimation - $totalArgent);
-            return view('Depense')->with('dons',$donArgent)->with('totaldon',$totalArgent)->with('estimations',$estimation)->with('totalestimation',$totalestimation)->with('rendement',$rendrement)->with('years',$years)->with('months',$month);
-        }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
+            $rendement = abs($totalestimation - $totalArgent);
+
+            return view('Depense', [
+                'dons' => $donArgent,
+                'totaldon' => $totalArgent,
+                'estimations' => $estimation,
+                'totalestimation' => $totalestimation,
+                'rendement' => $rendement,
+                'years' => $years,
+                'months' => $month
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
         }
     }
+
     //fonction pour recuperer les depense d'un camp avec une date
     public function DepenseDate(Request $request)
     {
