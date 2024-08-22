@@ -7,36 +7,28 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class MaterielExport implements FromCollection, WithHeadings
+class ArgentExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    protected $id;
 
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
     public function collection()
     {
         if (Auth::id() == 1){
             return DB::table('v_don')
-                ->where('id_materiel', '=',$this->id)
+                ->where('id_materiel', '=',1)
                 ->where('province', '=',Auth::id())
                 ->select(['materiel', 'colab', 'camp', 'quantite', 'datedon'])
                 ->get();
         }
         return DB::table('v_don')
-            ->where('id_materiel', '=', $this->id)
+            ->where('id_materiel', '=', 1)
             ->select(['materiel', 'colab', 'camp', 'quantite', 'datedon'])
             ->get();
     }
 
-
-    public function headings(): array
-    {
-        // Définir les en-têtes des colonnes si nécessaire
-        return ['Materiel', 'Donneur', 'Camp','quantite','Date d\' obtention']; // Remplacez par les noms de vos colonnes
+    public function headings(): array{
+        return ['Donneur','camp','quantite','Date d\' obtention'];
     }
 }

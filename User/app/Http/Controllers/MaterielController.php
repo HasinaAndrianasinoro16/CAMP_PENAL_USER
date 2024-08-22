@@ -57,6 +57,10 @@ class MaterielController extends Controller
     public function DetailsMateriel($id)
     {
         try {
+            if(Auth::user()->usertype == 1){
+                $materiels = DB::table('v_don')->where('id_materiel','=',$id)->where('province','=',Auth::user()->province)->get();
+                return view('DetailsMateriel')->with('materiels', $materiels);
+            }
             $materiels = DB::table('v_don')->where('id_materiel','=',$id)->get();
             return view('DetailsMateriel')->with('materiels',$materiels);
         }catch (\Exception $exception){
