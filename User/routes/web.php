@@ -62,6 +62,8 @@ Route::get('/Update-culture/{id?}',[\App\Http\Controllers\CultureController::cla
 
 Route::get('/supprimer-culture/{id?}',[\App\Http\Controllers\CultureController::class,'DropCulture'])->middleware(['auth', 'verified'])->name('dropCulture');
 
+Route::get('/export-materiel/{id?}',[\App\Http\Controllers\MaterielController::class,'MaterielExport'])->middleware(['auth', 'verified'])->name('exportMateriel');
+
 //POST URL
 Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
 

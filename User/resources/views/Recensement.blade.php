@@ -133,7 +133,7 @@
 
         html2pdf().from(element).set({
             filename: fileName,
-            jsPDF: {unit: 'pt', format: 'a4', orientation: 'portrait'}
+            jsPDF: {unit: 'pt', format: 'a4', orientation: 'landscape'}
         }).save();
     }
 </script>

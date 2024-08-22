@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MaterielExport;
 use App\Models\Materiel;
 use Couchbase\WatchQueryIndexesOptions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterielController extends Controller
 {
@@ -71,6 +74,19 @@ class MaterielController extends Controller
             }
             $argent = DB::table('v_don')->where('id_materiel','=',1)->get();
             return view('ArgentListe')->with('materiels',$argent);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //fonction pour l'export controller
+    public function MaterielExport($id)
+    {
+        try {
+            $nom = DB::table('materiel')->where('id','=',$id)->value('nom');
+            $date = Carbon::now()->format('d-m-Y-H-i-s');
+            $excel = 'Materiels_export_'.$nom.'_'.$date.'.xlsx';
+            return Excel::download(new MaterielExport($id), $excel);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
