@@ -91,6 +91,10 @@
 
     </script>
     <script>
-        new DataTable('#example');
+        var table = new DataTable('#example', {
+            language: {
+                url: 'https://api.allorigins.win/raw?url=http://cdn.datatables.net/plug-ins/2.1.4/i18n/fr-FR.json',
+            },
+        });
     </script>
 @endsection

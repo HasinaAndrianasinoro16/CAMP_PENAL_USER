@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ModelCulture;
 use App\Imports\CultureImport;
 use App\Models\Culture;
 use App\Models\Messages;
@@ -110,4 +111,19 @@ class CultureController extends Controller
             return redirect()->back()->withErrors(['error'=> 'Une erreur s\'est produite:' . $exception->getMessage()]);
         }
     }
+
+    //fonction pour telecharger le model excel pour la culture
+    public function ModelCulture()
+    {
+        try {
+            $data = [
+                ['(ex: John Doe, Analamanga...)', '(ex: 125,65)', '(ex: Argileux, Limoneux,...)'],
+            ];
+
+            return Excel::download(new ModelCulture($data),'Model_Culture.xlsx');
+        } catch (\Exception $exception) {
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
 }

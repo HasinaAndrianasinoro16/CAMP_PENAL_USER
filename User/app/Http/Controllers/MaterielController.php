@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AllMaterielExport;
 use App\Exports\MaterielExport;
 use App\Models\Materiel;
 use Couchbase\WatchQueryIndexesOptions;
@@ -68,6 +69,26 @@ class MaterielController extends Controller
         }
     }
 
+    //fonction pour afficher toures les cultures de la province
+    public function MaterielAll()
+    {
+        try {
+            if (Auth::user()->usertype == 1){
+                $materiels = DB::table('v_don')
+                    ->where('id_materiel','>',1)
+                    ->where('province','=',Auth::user()->province)
+                    ->get();
+                return view('MaterielListeAll')->with('materiels', $materiels);
+            }
+            $materiels = DB::table('v_don')
+                ->where('id_materiel','>',1)
+                ->get();
+            return view('MaterielListeAll')->with('materiels', $materiels);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
     //controller pour afficher la liste des dons d'argent
     public function ArgentListe()
     {
@@ -91,6 +112,16 @@ class MaterielController extends Controller
             $date = Carbon::now()->format('d-m-Y-H-i-s');
             $excel = 'Materiels_export_'.$nom.'_'.$date.'.xlsx';
             return Excel::download(new MaterielExport($id), $excel);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //fonction pour faire un export complet de tout les materiel
+    public function MaterielAllExport()
+    {
+        try {
+            return Excel::download(new AllMaterielExport(),'Materiels_export.xlsx');
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }

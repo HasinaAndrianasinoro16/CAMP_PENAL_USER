@@ -37,11 +37,11 @@
                         <div class="py-2"></div>
                         <div class="form-group">
                             <div class="col-9">
-                                <button type="submit" class="btn btn-success w-25 btn-lg"><i class="fas fa-check"></i> Enregistrer</button>
+                                <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check"></i> Enregistrer</button>
+                                <a href="{{ route('ModelCulture') }}" class="btn btn-warning btn-lg"><i class="fas fa-file-excel-o"></i> Telecharger le model Excel</a>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

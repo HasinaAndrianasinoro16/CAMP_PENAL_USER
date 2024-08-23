@@ -7,7 +7,7 @@
         <div class="col-lg-12">
             <div class="overview-wrap">
                 <h2 class="title-1">Materiel</h2>
-                <a href="{{ route('exportMateriel',['id' => request()->segment(2)]) }}"  class="au-btn au-btn-icon au-btn--green">
+                <a href="{{ route('ExportAllMateriel') }}"  class="au-btn au-btn-icon au-btn--green">
                     <i class="fas fa-file-excel"></i>excel
                 </a>
                 <button onclick="download()" class="au-btn au-btn-icon au-btn--green">
@@ -22,7 +22,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title h3">Details des Materiels</div>
+                            <div class="card-title h3">Liste de tous les Materiels</div>
                             <table id="example" class="table table-hover" >
                                 <thead>
                                 <tr>
@@ -58,6 +58,7 @@
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
     <script src="{{ asset('assets/js/html2pdf.bundle.min.js') }}"></script>
     <script>
+        // new DataTable('#example');
         var table = new DataTable('#example', {
             language: {
                 url: 'https://api.allorigins.win/raw?url=http://cdn.datatables.net/plug-ins/2.1.4/i18n/fr-FR.json',
@@ -77,7 +78,7 @@
                 ("0" + now.getMinutes()).slice(-2) + "-" +
                 ("0" + now.getSeconds()).slice(-2);
 
-            var fileName = "Details_materiel_{{ $materiel->materiel }}_" + dateStr + ".pdf";
+            var fileName = "Details_materiel_" + dateStr + ".pdf";
 
             html2pdf().from(element).set({
                 filename: fileName,

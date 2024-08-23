@@ -64,6 +64,12 @@ Route::get('/supprimer-culture/{id?}',[\App\Http\Controllers\CultureController::
 
 Route::get('/export-materiel/{id?}',[\App\Http\Controllers\MaterielController::class,'MaterielExport'])->middleware(['auth', 'verified'])->name('exportMateriel');
 
+Route::get('/Materiel-Liste-Tout',[\App\Http\Controllers\MaterielController::class,'MaterielAll'])->middleware(['auth', 'verified'])->name('AllMateriel');
+
+Route::get('/Materile-Export-All',[\App\Http\Controllers\MaterielController::class,'MaterielAllExport'])->middleware(['auth', 'verified'])->name('ExportAllMateriel');
+
+Route::get('/Model-culture-Excel',[\App\Http\Controllers\CultureController::class,'ModelCulture'])->middleware(['auth', 'verified'])->name('ModelCulture');
+
 //POST URL
 Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
 
