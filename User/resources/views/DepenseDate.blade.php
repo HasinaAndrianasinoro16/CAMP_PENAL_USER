@@ -35,7 +35,7 @@
                                     <label for="month" class="form-label">Mois</label>
                                     <select class="form-control" name="month" id="month">
                                         @foreach($months as $month)
-                                            <option value="{{ $month->month }}">{{ \Carbon\Carbon::create()->month($month->month)->translatedFormat('F') }}</option>
+                                            <option value="{{ $month->month }}">{{ ucfirst(\Carbon\Carbon::create()->month($month->month)->translatedFormat('F'))}}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -117,7 +117,7 @@ class CultureController extends Controller
     {
         try {
             $data = [
-                ['(ex: John Doe, Analamanga...)', '(ex: 125,65)', '(ex: Argileux, Limoneux,...)'],
+                ['(ex: Ail, Carotte...)', '(ex: 125,65)', '(ex: Argileux, Limoneux,...)'],
             ];
 
             return Excel::download(new ModelCulture($data),'Model_Culture.xlsx');
