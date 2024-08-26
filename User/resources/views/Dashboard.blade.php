@@ -137,7 +137,7 @@
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
                                         <a href="{{ route('profile.edit') }}">
-                                            <i class="zmdi zmdi-account"></i>Account </a>
+                                            <i class="zmdi zmdi-account"></i>Profile utilisateur </a>
                                     </div>
                                     <div class="account-dropdown__item">
                                         <form method="POST" action="{{ route('logout') }}">
