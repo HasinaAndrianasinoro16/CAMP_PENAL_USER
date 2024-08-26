@@ -59,27 +59,18 @@
                         <div class="statistic__item">
                             <h2 class="number h4">{{ number_format($rendement,2,',' , '.') }} Ar</h2>
                             <span class="desc">Rendement</span>
-                            <div class="icon">
-                                <i class="zmdi zmdi-money"></i>
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="statistic__item">
                             <h2 class="number h4">{{ number_format($totalEstimation,2,',' , '.') }} Ar</h2>
                             <span class="desc">Estimations récolte</span>
-                            <div class="icon">
-                                <i class="zmdi zmdi-money"></i>
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="statistic__item">
                             <h2 class="number h4">{{ number_format($totalArgent,2,',' , '.') }} Ar</h2>
                             <span class="desc">Don d'argent</span>
-                            <div class="icon">
-                                <i class="zmdi zmdi-money"></i>
-                            </div>
                         </div>
                     </div>
                 </div>

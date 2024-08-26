@@ -95,9 +95,9 @@
                                 <li>
                                     <a href="{{ route('AllMateriel') }}"><i class="fas fa-angle-right"></i>Liste</a>
                                 </li>
-                            <li>
-                                <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i>Quantite</a>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i>Quantite</a>--}}
+{{--                            </li>--}}
                             <li>
                                 <a href="{{ route('argentliste') }}"><i class="fas fa-angle-right"></i> Argent</a>
                             </li>
@@ -214,9 +214,9 @@
                                 <li>
                                     <a href="{{ route('AllMateriel') }}"><i class="fas fa-angle-right"></i>Liste</a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i> Quantite</a>
-                                </li>
+{{--                                <li>--}}
+{{--                                    <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i> Quantite</a>--}}
+{{--                                </li>--}}
                                 <li>
                                     <a href="{{ route('MaterielListe') }}"><i class="fas fa-angle-right"></i> Argent</a>
                                 </li>

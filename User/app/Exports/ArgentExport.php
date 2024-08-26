@@ -19,12 +19,12 @@ class ArgentExport implements FromCollection, WithHeadings
             return DB::table('v_don')
                 ->where('id_materiel', '=',1)
                 ->where('province', '=',Auth::id())
-                ->select(['materiel', 'colab', 'camp', 'quantite', 'datedon'])
+                ->select(['colab', 'camp', 'quantite', 'datedon'])
                 ->get();
         }
         return DB::table('v_don')
             ->where('id_materiel', '=', 1)
-            ->select(['materiel', 'colab', 'camp', 'quantite', 'datedon'])
+            ->select([ 'colab', 'camp', 'quantite', 'datedon'])
             ->get();
     }
 

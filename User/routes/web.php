@@ -70,6 +70,8 @@ Route::get('/Materile-Export-All',[\App\Http\Controllers\MaterielController::cla
 
 Route::get('/Model-culture-Excel',[\App\Http\Controllers\CultureController::class,'ModelCulture'])->middleware(['auth', 'verified'])->name('ModelCulture');
 
+Route::get('/Argent-Export',[\App\Http\Controllers\MaterielController::class,'ArgenExport'])->middleware(['auth', 'verified'])->name('ArgentExport');
+
 //POST URL
 Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
 

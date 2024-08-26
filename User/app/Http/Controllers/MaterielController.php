@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AllMaterielExport;
+use App\Exports\ArgentExport;
 use App\Exports\MaterielExport;
 use App\Models\Materiel;
 use Couchbase\WatchQueryIndexesOptions;
@@ -122,6 +123,16 @@ class MaterielController extends Controller
     {
         try {
             return Excel::download(new AllMaterielExport(),'Materiels_export.xlsx');
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //fonction pour exporter en feuilles excel les dons d'argent
+    public function ArgenExport()
+    {
+        try {
+            return Excel::download(new ArgentExport(),'Argents_export.xlsx');
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
