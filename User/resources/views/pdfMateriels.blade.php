@@ -52,7 +52,7 @@
             text-align: left;
         }
         table th {
-            background-color: #fd7348;
+            background-color: #1dd200;
             color: #fff;
             font-weight: bold;
         }
@@ -65,54 +65,63 @@
         table td, table th {
             text-align: center;
         }
+        .signature{
+            position: relative;
+            margin-top: 5%;
+            left: 65%;
+        }
+        .info{
+            position: relative;
+            left: 70%;
+        }
+        .visa{
+            position: relative;
+            margin-top: 4%;
+        }
     </style>
 </head>
 <body>
 <button onclick="addPdf('export')" class="export">imprimer en PDF</button>
 <div class="container" id="export">
     <div class="header">
-        <div class="user-info"><h1>D.R.A.P {{ \Illuminate\Support\Facades\DB::table('region')->where('id',\Illuminate\Support\Facades\Auth::user()->region)->value('nom') }}</h1></div>
+        <div class="user-info">
+            <h1>
+                {{ \Illuminate\Support\Facades\Auth::user()->usertype == 1 ? 'D.R.A.P '.\Illuminate\Support\Facades\DB::table('region')->where('id',\Illuminate\Support\Facades\Auth::user()->region)->value('nom') : 'Agent du Ministere' }}
+            </h1>
+            <h3>Date d'impression: {{ \Carbon\Carbon::now()->Format('d-m-Y') }}</h3>
+        </div>
     </div>
     <table>
         <thead>
         <tr>
-            <th>N d'ordre</th>
-            <th>Camp pénal</th>
-            <th>Localité</th>
-            <th>Distance D.R.A.P</th>
-            <th>Surface Total</th>
-            <th>Surface Cultivable</th>
-            <th>Surface non cultivable</th>
-            <th>Situation juridique</th>
-            <th>Exploité fonctionnel</th>
-            <th>Litige</th>
+            <th>Materiel</th>
+            <th>Donneur</th>
+            <th>Camp</th>
+            <th>quantite</th>
+            <th>Date d'obtention</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($abouts as $about)
+        @foreach( $materiels as $materiel )
             <tr>
-                <td>{{ $about->id_camp }}</td>
-                <td>{{ $about->camp }}</td>
-                <td>{{ $about->localite }}</td>
-                <td>{{ $about->distance }}</td>
-                <td>{{ $about->total }}</td>
-                <td>{{ $about->cultivable }}</td>
-                <td>{{ $about->ncultivable }}</td>
-                <td>{{ $about->situation }}</td>
-                <td>{{ $about->exploite_fonctionnel }}</td>
-                <td>{{ $about->litige }}</td>
+                <td>{{ $materiel->materiel }}</td>
+                <td>{{ $materiel->colab }}</td>
+                <td>{{ $materiel->camp }}</td>
+                <td>{{ number_format($materiel->quantite,2,',','.') }}</td>
+                <td>{{ $materiel->datedon }}</td>
             </tr>
         @endforeach
-        <tr >
-            <th>Total</th>
-            <th></th><th></th><th></th>
-            <th>{{ $total }}</th>
-            <th>{{ $cultivable }}</th>
-            <th>{{ $ncultivable }}</th>
-            <th></th><th></th><th></th>
-        </tr>
         </tbody>
     </table>
+    <div class="visa">
+        <h3>(visa du DRAP)</h3>
+    </div>
+    <div class="info">
+        <h3>Fait à ………………………, le ………………………</h3>
+    </div>
+    <div class="signature">
+        <h3>Le chef du service régional de la production<h3>
+    </div>
 </div>
 <script src="{{ asset('assets/js/html2pdf.bundle.min.js') }}"></script>
 <script>
@@ -129,7 +138,7 @@
             ("0" + now.getMinutes()).slice(-2) + "-" +
             ("0" + now.getSeconds()).slice(-2);
 
-        var fileName = "recensement_" + dateStr + ".pdf";
+        var fileName = "Details_materiel_" + dateStr + ".pdf";
 
         html2pdf().from(element).set({
             filename: fileName,

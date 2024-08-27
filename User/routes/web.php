@@ -72,6 +72,8 @@ Route::get('/Model-culture-Excel',[\App\Http\Controllers\CultureController::clas
 
 Route::get('/Argent-Export',[\App\Http\Controllers\MaterielController::class,'ArgenExport'])->middleware(['auth', 'verified'])->name('ArgentExport');
 
+Route::get('/Materiel-Pdf',[\App\Http\Controllers\MaterielController::class,'MaterielAllPDF'])->middleware(['auth', 'verified'])->name('MaterielAllPDF');
+
 //POST URL
 Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
 

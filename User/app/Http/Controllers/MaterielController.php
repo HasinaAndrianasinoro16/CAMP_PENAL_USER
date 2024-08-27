@@ -90,6 +90,26 @@ class MaterielController extends Controller
         }
     }
 
+    //fonction pour afficher toures les cultures de la province
+    public function MaterielAllPDF()
+    {
+        try {
+            if (Auth::user()->usertype == 1){
+                $materiels = DB::table('v_don')
+                    ->where('id_materiel','>',1)
+                    ->where('province','=',Auth::user()->province)
+                    ->get();
+                return view('pdfMateriels')->with('materiels', $materiels);
+            }
+            $materiels = DB::table('v_don')
+                ->where('id_materiel','>',1)
+                ->get();
+            return view('pdfMateriels')->with('materiels', $materiels);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
     //controller pour afficher la liste des dons d'argent
     public function ArgentListe()
     {
