@@ -40,7 +40,7 @@
                                         <td>{{ $materiel->colab }}</td>
                                         <td>{{ $materiel->camp }}</td>
                                         <td>{{ number_format($materiel->quantite,2,',','.') }}</td>
-                                        <td>{{ $materiel->datedon }}</td>
+                                        <td>{{ \Carbon\Carbon::make($materiel->datedon)->format('d-m-Y') }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
