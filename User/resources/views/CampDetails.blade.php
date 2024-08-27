@@ -135,14 +135,17 @@
                     <table class="table table-borderless tab">
                         <thead>
                         <th>Nom</th>
-                        <th>Debut et fin de fonction</th>
+                        <th>Debut et fin de collaboration</th>
                         <th>Details</th>
                         </thead>
                         <tbody>
                         @foreach($colabs as $colab)
                             <tr>
                                 <td>{{ $colab->colab }}</td>
-                                <td>{{ $colab->debut }} / {{ $colab->fin }}</td>
+                                <td>
+                                    {{ $colab->debut ? Carbon\Carbon::make($colab->debut)->format('d-m-Y') : ' ' }} /
+                                    {{ $colab->fin ? \Carbon\Carbon::make($colab->fin)->format('d-m-Y') : ' ' }}
+                                </td>
                                 <td>{{ $colab->details }}</td>
                             </tr>
                         @endforeach

@@ -12,7 +12,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title h3">formulaire</div>
+                    <div class="card-title h3">Rapport mensuel</div>
                     <form action="{{ route('DepenseDate') }}" method="post">
                         @csrf
                         <div class="row">

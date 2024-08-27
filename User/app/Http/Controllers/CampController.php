@@ -194,7 +194,7 @@ class CampController extends Controller
                 'prisonier.min' => "Le nombre de prisonniers ne peut pas être inférieur à $limite.",
             ]);
 
-            Camp::SaveRecolte($request->camp, $request->culture, $request->quantite, $request->date);
+            Camp::SaveRecolte($request->camp, $request->culture, $request->quantite, $request->date, $request->prisonier);
             Camp::saveEstimation($request->camp, $request->culture, $request->quantite, $request->date,0);
 
             return redirect()->back()->with('success', 'Récolte enregistrée avec succès');

@@ -46,7 +46,7 @@ class Camp extends Model
     }
 
     //fonction pour enregistrer une recolte
-    public static function SaveRecolte($camp, $culture, $quantite, $date)
+    public static function SaveRecolte($camp, $culture, $quantite, $date, $prisonier)
     {
         try{
             $insert = DB::table('stockculture')
@@ -55,7 +55,8 @@ class Camp extends Model
                     'culture' => $culture,
                     'quantite' => $quantite,
                     'datestock' => $date,
-                    'etat' => 0
+                    'etat' => 0,
+                    'prisonier' => $prisonier,
                 ]);
             return $insert;
         }catch (\Exception $exception){

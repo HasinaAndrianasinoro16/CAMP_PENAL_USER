@@ -58,7 +58,7 @@
                                      onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                         <i class="zmdi zmdi-power"></i>
-                        {{ __('sign out') }}
+                        {{ __('Se deconnecter') }}
                     </x-dropdown-link>
                 </form>
 {{--                <a href="#">Sign out</a>--}}
@@ -144,7 +144,7 @@
                                             @csrf
                                             <button type="submit" class="dropdown-item">
                                                 <i class="zmdi zmdi-power"></i>
-                                                {{ __('Sign out') }}
+                                                {{ __('Se deconnecter') }}
                                             </button>
                                         </form>
 
@@ -172,7 +172,7 @@
                         @csrf
                         <button type="submit" class="dropdown-item">
                             <i class="zmdi zmdi-power"></i>
-                            {{ __('Sign out') }}
+                            {{ __('Se deconnecter') }}
                         </button>
                     </form>
 
