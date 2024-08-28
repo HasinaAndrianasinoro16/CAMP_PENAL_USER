@@ -56,7 +56,7 @@ class Camp extends Model
                     'quantite' => $quantite,
                     'datestock' => $date,
                     'etat' => 0,
-                    'prisonier' => $prisonier,
+                    'prisonnier' => $prisonier,
                 ]);
             return $insert;
         }catch (\Exception $exception){

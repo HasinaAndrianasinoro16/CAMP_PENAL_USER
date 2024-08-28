@@ -32,7 +32,7 @@
                                             @endif
                                         </a>
                                     </h5>
-                                    <span class="time">{{ $user->position }}</span>
+                                    <span class="time">{{ $user->usertype == 1 ? $user->position .' '. $user->region : $user->position  }}</span>
                                 </div>
                             </div>
                         @endforeach
