@@ -126,6 +126,16 @@ class Camp extends Model
             throw new \Exception($exception->getMessage());
         }
     }
+//fonction pour recuperer les donnes par camp par ID
+    public static function getCampById($id)
+    {
+        try {
+            $camp = DB::table('v_camp')->where('id','=', $id)->first();
+            return $camp;
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
 
 
     use HasFactory;

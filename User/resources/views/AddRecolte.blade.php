@@ -26,6 +26,15 @@
                             {{ session('success2') }}
                         </div>
                     @endif
+                    <div class="py-3"></div>
+                    <p>ce camp est composé de terre <code>{{ $sol->sol }}</code>
+                        ma suggestion pour ce type de terre sont les cultures suivantes :
+                        @foreach( $sugs as $sug )
+                            <code>{{ $sug->culture }}</code>,
+                        @endforeach
+                        car ces culture sont plus favorable pour cette terre.
+                    </p>
+                    <div class="py-3"></div>
                     <form action="{{ route('SaveCulture') }}" method="post">
                         <input type="hidden" value="{{ request()->segment(2) }}" name="camp">
                         @csrf

@@ -163,7 +163,10 @@ class CampController extends Controller
             $culture = DB::table('v_campculture')->where('id_camp','=',$id)->get();
             $cultures = DB::table('culture')->get();
             $liste = DB::table('v_campculture')->where('id_camp','=',$id)->get();
-            return view('AddRecolte')->with('cultures',$culture)->with('cults',$cultures)->with('listes',$liste);
+            $sol = Camp::getCampById($id);
+            $sol_id = $sol->id_sol;
+            $suggest = DB::table('v_culture')->where('id_sol','=',$sol_id)->get();
+            return view('AddRecolte')->with('cultures',$culture)->with('cults',$cultures)->with('listes',$liste)->with('sugs',$suggest)->with('sol',$sol);;
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
