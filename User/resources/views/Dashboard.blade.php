@@ -54,10 +54,10 @@
                 <h4 class="name">{{ Auth::user()->name }}</h4>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-dropdown-link :href="route('logout')"
+
+                    <x-dropdown-link class="dropdown-item d-flex align-items-center text-primary" :href="route('logout')"
                                      onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                        <i class="zmdi zmdi-power"></i>
                         {{ __('Se deconnecter') }}
                     </x-dropdown-link>
                 </form>
@@ -142,10 +142,12 @@
                                     <div class="account-dropdown__item">
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
-                                            <button type="submit" class="dropdown-item">
-                                                <i class="zmdi zmdi-power"></i>
+
+                                            <x-dropdown-link class="dropdown-item d-flex align-items-center" :href="route('logout')"
+                                                             onclick="event.preventDefault();
+                                                this.closest('form').submit();">
                                                 {{ __('Se deconnecter') }}
-                                            </button>
+                                            </x-dropdown-link>
                                         </form>
 
                                     </div>
