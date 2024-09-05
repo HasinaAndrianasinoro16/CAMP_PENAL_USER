@@ -7,52 +7,50 @@
         <div class="col-lg-12">
             <div class="overview-wrap">
                 <h2 class="title-1">Materiel</h2>
-                <a href="{{ route('ExportAllMateriel') }}"  class="au-btn au-btn-icon au-btn--green">
+                <a href="{{ route('MaterielExportProvinces',['id' => $select]) }}"  class="au-btn au-btn-icon au-btn--green">
                     <i class="fas fa-file-excel"></i>excel
                 </a>
-                <a href="{{ route('MaterielAllPDF') }}" class="au-btn au-btn-icon au-btn--green">
+                <a href="{{ route('MaterielAllPDFProvince',['id' => $select]) }}" class="au-btn au-btn-icon au-btn--green">
                     <i class="fas fa-print"></i>PDF
                 </a>
             </div>
             <div class="py-3"></div>
         </div>
-       @if(\Illuminate\Support\Facades\Auth::user()->usertype == 2)
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title h3">Choix par province</div>
-                        <form action="{{ route('Materiel-province') }}" method="post">
-                            @csrf
-                            <div class="card-body card-block">
-                                <div class="form-group">
-                                    <div class="col-8">
-                                        <label for="Nom" class="form-control-label">Province</label>
-                                        <select id="Province" name="Province" class="form-control">
-                                            @foreach($provinces as $province)
-                                                <option value="{{ $province->id }}">{{ $province->nom }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="py-2"></div>
-                                <div class="form-group">
-                                    <div class="col-11">
-                                        <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check"></i> Voir</button>
-                                    </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title h3">Choix par province</div>
+                    <form action="#" method="post">
+                        @csrf
+                        <div class="card-body card-block">
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <label for="Nom" class="form-control-label">Region</label>
+                                    <select id="region" name="region" class="form-control">
+                                        @foreach($provinces as $province)
+                                            <option value="{{ $province->id }}">{{ $province->nom }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="py-2"></div>
+                            <div class="form-group">
+                                <div class="col-11">
+                                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check"></i> Voir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-       @endif
+        </div>
 
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title h3">Liste de tous les Materiels</div>
+                            <div class="card-title h3">Liste de tous les Materiels province : {{ $maprovince }}</div>
                             <table id="example" class="table table-hover" >
                                 <thead>
                                 <tr>
@@ -86,12 +84,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script src="{{ asset('assets/js/html2pdf.bundle.min.js') }}"></script>
-{{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#Province').select2({
+            $('#region').select2({
                 placeholder: "Sélectionnez une option",
                 allowClear: true
             });

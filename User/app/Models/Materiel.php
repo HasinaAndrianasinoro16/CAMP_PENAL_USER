@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Materiel extends Model
 {
@@ -19,6 +20,18 @@ class Materiel extends Model
             $materiel->durer = $durer;
             $materiel->save();
             return $materiel;
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+    public static function MaterielProvince($province)
+    {
+        try {
+            $materiels = DB::table('v_don')
+                ->where('id_materiel','>',1)
+                ->where('province', '=', $province)
+                ->get();
+            return  $materiels;
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }

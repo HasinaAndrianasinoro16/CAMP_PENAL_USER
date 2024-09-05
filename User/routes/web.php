@@ -74,6 +74,10 @@ Route::get('/Argent-Export',[\App\Http\Controllers\MaterielController::class,'Ar
 
 Route::get('/Materiel-Pdf',[\App\Http\Controllers\MaterielController::class,'MaterielAllPDF'])->middleware(['auth', 'verified'])->name('MaterielAllPDF');
 
+Route::get('/Materiel-pdf-province/{id?}',[\App\Http\Controllers\MaterielController::class,'MaterielPdfProvince'])->middleware(['auth', 'verified'])->name('MaterielAllPDFProvince');
+
+Route::get('/Materiel-Excel-province/{id?}',[\App\Http\Controllers\MaterielController::class,'MaterielExportProvince'])->middleware(['auth', 'verified'])->name('MaterielExportProvinces');
+
 //POST URL
 Route::post('/Form-Ajout-Sortie-culture',[\App\Http\Controllers\CampController::class,'SortieCulture'])->middleware(['auth', 'verified'])->name('FormAjoutSortieCulture');
 
@@ -98,6 +102,8 @@ Route::post('/Modifier-culture',[\App\Http\Controllers\CultureController::class,
 Route::post('/Form-Ajout-culture-camp',[\App\Http\Controllers\CampController::class,'AddCultureCamp'])->middleware(['auth', 'verified'])->name('SaveCulture');
 
 Route::post('/import-Culure',[\App\Http\Controllers\CultureController::class,'ImportCulture'])->middleware(['auth', 'verified'])->name('ImportCulture');
+
+Route::post('/Materiel-povince',[\App\Http\Controllers\MaterielController::class,'MaterielProvince'])->middleware(['auth', 'verified'])->name('Materiel-province');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

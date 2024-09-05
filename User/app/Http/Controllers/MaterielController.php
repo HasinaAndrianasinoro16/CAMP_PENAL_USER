@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\AllMaterielExport;
 use App\Exports\ArgentExport;
 use App\Exports\MaterielExport;
+use App\Exports\MaterielProvince;
 use App\Models\Materiel;
 use Couchbase\WatchQueryIndexesOptions;
 use Illuminate\Http\Request;
@@ -74,17 +75,18 @@ class MaterielController extends Controller
     public function MaterielAll()
     {
         try {
+            $province = DB::table('province')->get();
             if (Auth::user()->usertype == 1){
                 $materiels = DB::table('v_don')
                     ->where('id_materiel','>',1)
                     ->where('province','=',Auth::user()->province)
                     ->get();
-                return view('MaterielListeAll')->with('materiels', $materiels);
+                return view('MaterielListeAll')->with('materiels', $materiels)->with('provinces', $province);
             }
             $materiels = DB::table('v_don')
                 ->where('id_materiel','>',1)
                 ->get();
-            return view('MaterielListeAll')->with('materiels', $materiels);
+            return view('MaterielListeAll')->with('materiels', $materiels)->with('provinces', $province);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
@@ -138,6 +140,19 @@ class MaterielController extends Controller
         }
     }
 
+    //fonction pour telecharger l'export Excel des materiaux par province
+    public function MaterielExportProvince($id)
+    {
+        try {
+            $province  = DB::table('province')->where('id','=',$id)->value('nom');
+            $date = Carbon::now()->format('d-m-Y-H-i-s');
+            $excel = 'Materiels_export_'.$province.'_'.$date.'.xlsx';
+            return Excel::download(new MaterielProvince($id), $excel);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
     //fonction pour faire un export complet de tout les materiel
     public function MaterielAllExport()
     {
@@ -153,6 +168,39 @@ class MaterielController extends Controller
     {
         try {
             return Excel::download(new ArgentExport(),'Argents_export.xlsx');
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //controller pour afficher les materiaux par province
+    public function MaterielProvince(Request $request)
+    {
+        try {
+            $request->validate([
+                'Province' => 'required',
+            ]);
+            $province = DB::table('province')->get();
+            $select = \request('Province');
+           $materiels = Materiel::MaterielProvince(\request('province'));
+           $maProvince = DB::table('province')->value('nom');
+            return view('MaterielProvince')->with('materiels', $materiels)->with('provinces', $province)->with('select',$select)->with('maprovince',$maProvince);
+        }catch (\Exception $exception){
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    //fonction pour recuperer le pdf des mateiraux par province
+    public function MaterielPdfProvince($id)
+    {
+        try {
+            $materiels = DB::table('v_don')
+                ->where('id_materiel','>',1)
+                ->where('province', '=', $id)
+                ->get();
+            $province = DB::table('province')->where('id','=',$id)->value('nom');
+
+            return view('pdfMaterielsProvince')->with('materiels', $materiels)->with('province', $province);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
