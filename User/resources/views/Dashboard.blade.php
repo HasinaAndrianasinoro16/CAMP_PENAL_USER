@@ -58,7 +58,7 @@
                     <x-dropdown-link class="dropdown-item d-flex align-items-center text-primary" :href="route('logout')"
                                      onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                        {{ __('Se deconnecter') }}
+                        <i class="zmdi zmdi-power"></i>  {{ __('Se deconnecter') }}
                     </x-dropdown-link>
                 </form>
 {{--                <a href="#">Sign out</a>--}}
@@ -146,6 +146,7 @@
                                             <x-dropdown-link class="dropdown-item d-flex align-items-center" :href="route('logout')"
                                                              onclick="event.preventDefault();
                                                 this.closest('form').submit();">
+                                                <i class="zmdi zmdi-power"></i>
                                                 {{ __('Se deconnecter') }}
                                             </x-dropdown-link>
                                         </form>
