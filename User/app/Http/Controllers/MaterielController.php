@@ -141,17 +141,30 @@ class MaterielController extends Controller
     }
 
     //fonction pour telecharger l'export Excel des materiaux par province
-    public function MaterielExportProvince($id)
+    public function MaterielExportProvince($ids)
     {
         try {
-            $province  = DB::table('province')->where('id','=',$id)->value('nom');
+            // Convertir la chaîne d'IDs en tableau
+            $idsArray = explode(',', $ids);
+
+            // Récupérer les noms des provinces sélectionnées
+            $provinces = DB::table('province')
+                ->whereIn('id', $idsArray)
+                ->pluck('nom')
+                ->toArray();
+
+            // Générer le nom de fichier avec les noms des provinces
             $date = Carbon::now()->format('d-m-Y-H-i-s');
-            $excel = 'Materiels_export_'.$province.'_'.$date.'.xlsx';
-            return Excel::download(new MaterielProvince($id), $excel);
-        }catch (\Exception $exception){
+            $provinceNames = implode('_', $provinces);
+            $excel = 'Materiels_export_'.$provinceNames.'_'.$date.'.xlsx';
+
+            // Exporter les données
+            return Excel::download(new MaterielProvince($idsArray), $excel);
+        } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
     }
+
 
     //fonction pour faire un export complet de tout les materiel
     public function MaterielAllExport()
@@ -177,35 +190,66 @@ class MaterielController extends Controller
     public function MaterielProvince(Request $request)
     {
         try {
+            // Validation pour s'assurer qu'au moins une province est sélectionnée
             $request->validate([
-                'province' => 'required',
+                'province' => 'required|array', // 'province' doit être un tableau
+//                'province.*' => 'exists:province,id' // chaque élément du tableau doit exister dans la table 'province'
             ]);
-            $province = DB::table('province')->get();
-            $select = $request->province;
+
+            // Récupérer les provinces sélectionnées
+            $selectedProvinces = $request->input('province'); // Tableau des provinces sélectionnées
+
+            // Récupérer toutes les provinces pour la vue
+            $provinces = DB::table('province')->get();
+
+            // Récupérer les matériels correspondant aux provinces sélectionnées
             $materiels = DB::table('v_don')
-                ->where('id_materiel','>',1)
-                ->where('province', '=', $select)
+                ->where('id_materiel', '>', 1)
+                ->whereIn('province', $selectedProvinces) // Utilisation de whereIn pour plusieurs provinces
                 ->get();
-           $maProvince = DB::table('province')->where('id','=',$select)->value('nom');
-            return view('MaterielProvince')->with('materiels', $materiels)->with('provinces', $province)->with('select',$select)->with('maprovince',$maProvince);
-        }catch (\Exception $exception){
+
+            // Récupérer les noms des provinces sélectionnées pour les afficher
+            $selectedProvinceNames = DB::table('province')
+                ->whereIn('id', $selectedProvinces)
+                ->pluck('nom'); // Liste des noms de provinces sélectionnées
+
+            // Retourner la vue avec les données nécessaires
+            return view('MaterielProvince', [
+                'materiels' => $materiels,
+                'provinces' => $provinces,
+                'select' => $selectedProvinces, // Passer le tableau des provinces sélectionnées
+                'selectedProvinceNames' => $selectedProvinceNames // Noms des provinces sélectionnées
+            ]);
+
+        } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
     }
 
-    //fonction pour recuperer le pdf des mateiraux par province
-    public function MaterielPdfProvince($id)
+    // Fonction pour récupérer le PDF des matériels par provinces
+    public function MaterielPdfProvince($ids)
     {
         try {
-            $materiels = DB::table('v_don')
-                ->where('id_materiel','>',1)
-                ->where('province', '=', $id)
-                ->get();
-            $province = DB::table('province')->where('id','=',$id)->value('nom');
+            // Convertir la chaîne d'IDs en tableau
+            $idsArray = explode(',', $ids);
 
-            return view('pdfMaterielsProvince')->with('materiels', $materiels)->with('province', $province);
-        }catch (\Exception $exception){
+            // Récupérer les matériels des provinces sélectionnées
+            $materiels = DB::table('v_don')
+                ->where('id_materiel', '>', 1)
+                ->whereIn('province', $idsArray)
+                ->get();
+
+            // Récupérer les noms des provinces sélectionnées
+            $provinces = DB::table('province')
+                ->whereIn('id', $idsArray)
+                ->pluck('nom');
+
+            return view('pdfMaterielsProvince')
+                ->with('materiels', $materiels)
+                ->with('provinces', $provinces);
+        } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
     }
+
 }

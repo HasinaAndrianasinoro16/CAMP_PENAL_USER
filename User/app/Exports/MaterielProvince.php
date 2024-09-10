@@ -11,16 +11,17 @@ class MaterielProvince implements FromCollection, WithHeadings
     /**
     * @return \Illuminate\Support\Collection
     */
-    protected $province;
-    public function __construct($province){
-        $this->province = $province;
+    protected $provinces;
+    public function __construct($provinces){
+        $this->provinces = $provinces;
     }
 
     public function collection()
     {
+        // Récupérer les matériels des provinces sélectionnées
         return DB::table('v_don')
-            ->where('id_materiel','>',1)
-            ->where('province', '=', $this->province)
+            ->where('id_materiel', '>', 1)
+            ->whereIn('province', $this->provinces)
             ->select(['materiel', 'colab', 'camp', 'quantite', 'datedon'])
             ->get();
     }

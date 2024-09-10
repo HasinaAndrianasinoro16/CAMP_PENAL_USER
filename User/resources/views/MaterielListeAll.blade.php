@@ -24,16 +24,32 @@
                         <form action="{{ route('Materiel-province') }}" method="post">
                             @csrf
                             <div class="card-body card-block">
-                                <div class="form-group">
-                                    <div class="col-8">
-                                        <label for="province" class="form-control-label">Province</label>
-                                        <select id="province" name="province" class="form-control">
-                                            @foreach($provinces as $province)
-                                                <option value="{{ $province->id }}">{{ $province->nom }}</option>
+                                <div class="row">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Province</label>
+                                        </div>
+                                        <div class="col col-md-9">
+                                            @foreach( $provinces as $province)
+                                            <div class="form-check-inline form-check">
+                                                    <label for="inline-checkbox1" class="form-check-label ">
+                                                        <input type="checkbox" id="inline-checkbox1" name="province[]" value="{{ $province->id }}" class="form-check-input">{{ $province->nom }}
+                                                    </label>
+                                            </div>
                                             @endforeach
-                                        </select>
+                                        </div>
                                     </div>
                                 </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <div class="col-8">--}}
+{{--                                        <label for="province" class="form-control-label">Province</label>--}}
+{{--                                        <select id="province" name="province" class="form-control">--}}
+{{--                                            @foreach($provinces as $province)--}}
+{{--                                                <option value="{{ $province->id }}">{{ $province->nom }}</option>--}}
+{{--                                            @endforeach--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="py-2"></div>
                                 <div class="form-group">
                                     <div class="col-11">

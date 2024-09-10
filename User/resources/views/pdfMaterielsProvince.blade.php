@@ -89,7 +89,7 @@
                 {{ \Illuminate\Support\Facades\Auth::user()->usertype == 1 ? 'D.R.A.P '.\Illuminate\Support\Facades\DB::table('region')->where('id',\Illuminate\Support\Facades\Auth::user()->region)->value('nom') : 'Agent du Ministere' }}
             </h1>
             @if(\Illuminate\Support\Facades\Auth::user()->usertype == 2)
-                <h3>Liste des materiels province : {{ $province }}</h3>
+                <h3>Liste des matériels des provinces : {{ implode(', ', $provinces->toArray()) }}</h3>
             @endif
             <h3>Date d'impression: {{ \Carbon\Carbon::now()->Format('d-m-Y') }}</h3>
         </div>

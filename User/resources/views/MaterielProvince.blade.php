@@ -7,10 +7,10 @@
         <div class="col-lg-12">
             <div class="overview-wrap">
                 <h2 class="title-1">Materiel</h2>
-                <a href="{{ route('MaterielExportProvinces',['id' => $select]) }}"  class="au-btn au-btn-icon au-btn--green">
+                <a href="{{ route('MaterielExportProvinces', ['id' => implode(',', $select)]) }}" class="au-btn au-btn-icon au-btn--green">
                     <i class="fas fa-file-excel"></i>excel
                 </a>
-                <a href="{{ route('MaterielAllPDFProvince',['id' => $select]) }}" class="au-btn au-btn-icon au-btn--green">
+                <a href="{{ route('MaterielAllPDFProvince', ['id' => implode(',', $select)]) }}" class="au-btn au-btn-icon au-btn--green">
                     <i class="fas fa-print"></i>PDF
                 </a>
             </div>
@@ -23,16 +23,32 @@
                     <form action="{{ route('Materiel-province') }}" method="post">
                         @csrf
                         <div class="card-body card-block">
-                            <div class="form-group">
-                                <div class="col-8">
-                                    <label for="province" class="form-control-label">Region</label>
-                                    <select id="province" name="province" class="form-control">
-                                        @foreach($provinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->nom }}</option>
+                            <div class="row">
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Province</label>
+                                    </div>
+                                    <div class="col col-md-9">
+                                        @foreach( $provinces as $province)
+                                            <div class="form-check-inline form-check">
+                                                <label for="inline-checkbox1" class="form-check-label ">
+                                                    <input type="checkbox" id="inline-checkbox1" name="province[]" value="{{ $province->id }}" class="form-check-input">{{ $province->nom }}
+                                                </label>
+                                            </div>
                                         @endforeach
-                                    </select>
+                                    </div>
                                 </div>
                             </div>
+                            {{--                                <div class="form-group">--}}
+                            {{--                                    <div class="col-8">--}}
+                            {{--                                        <label for="province" class="form-control-label">Province</label>--}}
+                            {{--                                        <select id="province" name="province" class="form-control">--}}
+                            {{--                                            @foreach($provinces as $province)--}}
+                            {{--                                                <option value="{{ $province->id }}">{{ $province->nom }}</option>--}}
+                            {{--                                            @endforeach--}}
+                            {{--                                        </select>--}}
+                            {{--                                    </div>--}}
+                            {{--                                </div>--}}
                             <div class="py-2"></div>
                             <div class="form-group">
                                 <div class="col-11">
@@ -50,7 +66,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title h3">Liste de tous les Materiels province : {{ $maprovince }}</div>
+                            <div class="card-title h3">
+                                Liste de tous les Materiels des provinces :
+                                {{ implode(', ', $selectedProvinceNames->toArray()) }}
+                            </div>
                             <table id="example" class="table table-hover" >
                                 <thead>
                                 <tr>
