@@ -53,6 +53,7 @@
                             <div class="form-group">
                                 <div class="col-11">
                                     <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check"></i> Voir</button>
+                                    <a href="{{ route('AllMateriel') }}" class="btn btn-warning btn-lg">Tout</a>
                                 </div>
                             </div>
                         </div>
