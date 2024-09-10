@@ -178,12 +178,15 @@ class MaterielController extends Controller
     {
         try {
             $request->validate([
-                'Province' => 'required',
+                'province' => 'required',
             ]);
             $province = DB::table('province')->get();
-            $select = \request('Province');
-           $materiels = Materiel::MaterielProvince(\request('province'));
-           $maProvince = DB::table('province')->value('nom');
+            $select = $request->province;
+            $materiels = DB::table('v_don')
+                ->where('id_materiel','>',1)
+                ->where('province', '=', $select)
+                ->get();
+           $maProvince = DB::table('province')->where('id','=',$select)->value('nom');
             return view('MaterielProvince')->with('materiels', $materiels)->with('provinces', $province)->with('select',$select)->with('maprovince',$maProvince);
         }catch (\Exception $exception){
             throw new \Exception($exception->getMessage());

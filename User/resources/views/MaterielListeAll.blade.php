@@ -26,8 +26,8 @@
                             <div class="card-body card-block">
                                 <div class="form-group">
                                     <div class="col-8">
-                                        <label for="Nom" class="form-control-label">Province</label>
-                                        <select id="Province" name="Province" class="form-control">
+                                        <label for="province" class="form-control-label">Province</label>
+                                        <select id="province" name="province" class="form-control">
                                             @foreach($provinces as $province)
                                                 <option value="{{ $province->id }}">{{ $province->nom }}</option>
                                             @endforeach
@@ -91,7 +91,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#Province').select2({
+            $('#province').select2({
                 placeholder: "Sélectionnez une option",
                 allowClear: true
             });

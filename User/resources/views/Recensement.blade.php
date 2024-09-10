@@ -70,9 +70,15 @@
 <body>
 <button onclick="addPdf('export')" class="export">imprimer en PDF</button>
 <div class="container" id="export">
-    <div class="header">
-        <div class="user-info"><h1>D.R.A.P {{ \Illuminate\Support\Facades\DB::table('region')->where('id',\Illuminate\Support\Facades\Auth::user()->region)->value('nom') }}</h1></div>
-    </div>
+   @if(\Illuminate\Support\Facades\Auth::user()->usertype == 1)
+        <div class="header">
+            <div class="user-info"><h1>D.R.A.P {{ \Illuminate\Support\Facades\DB::table('region')->where('id',\Illuminate\Support\Facades\Auth::user()->region)->value('nom') }}</h1></div>
+        </div>
+    @else
+        <div class="header">
+            <div class="user-info"><h1>Agent du ministere</h1></div>
+        </div>
+   @endif
     <table>
         <thead>
         <tr>
