@@ -94,28 +94,35 @@
             <h3>Date d'impression: {{ \Carbon\Carbon::now()->Format('d-m-Y') }}</h3>
         </div>
     </div>
-    <table>
-        <thead>
-        <tr>
-            <th>Materiel</th>
-            <th>Donneur</th>
-            <th>Camp</th>
-            <th>quantite</th>
-            <th>Date d'obtention</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach( $materiels as $materiel )
-            <tr>
-                <td>{{ $materiel->materiel }}</td>
-                <td>{{ $materiel->colab }}</td>
-                <td>{{ $materiel->camp }}</td>
-                <td>{{ number_format($materiel->quantite,2,',','.') }}</td>
-                <td>{{ $materiel->datedon }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <!-- Boucle pour afficher les matériels par province -->
+    @foreach($materiels_grouped_by_province as $province => $materiels)
+        <div class="province-section">
+            <h2 class="province-title">Province : {{ \Illuminate\Support\Facades\DB::table('province')->where('id',$province)->value('nom') }}</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Materiel</th>
+                    <th>Donneur</th>
+                    <th>Camp</th>
+                    <th>Quantité</th>
+                    <th>Date d'obtention</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($materiels as $materiel)
+                    <tr>
+                        <td>{{ $materiel->materiel }}</td>
+                        <td>{{ $materiel->colab }}</td>
+                        <td>{{ $materiel->camp }}</td>
+                        <td>{{ number_format($materiel->quantite, 2, ',', '.') }}</td>
+                        <td>{{ $materiel->datedon }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endforeach
+
     <div class="visa">
         <h3>(visa du DRAP)</h3>
     </div>

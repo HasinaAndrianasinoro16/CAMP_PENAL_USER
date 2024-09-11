@@ -233,11 +233,12 @@ class MaterielController extends Controller
             // Convertir la chaîne d'IDs en tableau
             $idsArray = explode(',', $ids);
 
-            // Récupérer les matériels des provinces sélectionnées
+            // Récupérer les matériels des provinces sélectionnées et les grouper par province
             $materiels = DB::table('v_don')
                 ->where('id_materiel', '>', 1)
                 ->whereIn('province', $idsArray)
-                ->get();
+                ->get()
+                ->groupBy('province'); // Groupement par province
 
             // Récupérer les noms des provinces sélectionnées
             $provinces = DB::table('province')
@@ -245,11 +246,12 @@ class MaterielController extends Controller
                 ->pluck('nom');
 
             return view('pdfMaterielsProvince')
-                ->with('materiels', $materiels)
+                ->with('materiels_grouped_by_province', $materiels) // Passer les matériels groupés par province
                 ->with('provinces', $provinces);
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
     }
+
 
 }
