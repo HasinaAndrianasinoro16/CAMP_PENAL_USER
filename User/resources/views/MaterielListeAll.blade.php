@@ -76,6 +76,7 @@
                                     <th>Donneur</th>
                                     <th>Camp</th>
                                     <th>quantite</th>
+                                    <th>Province</th>
                                     <th>Date d'obtention</th>
                                 </tr>
                                 </thead>
@@ -86,6 +87,7 @@
                                         <td>{{ $materiel->colab }}</td>
                                         <td>{{ $materiel->camp }}</td>
                                         <td>{{ number_format($materiel->quantite,2,',','.') }}</td>
+                                        <td>{{ \Illuminate\Support\Facades\DB::table('province')->where('id',$materiel->province)->value('nom') }}</td>
                                         <td>{{ \Carbon\Carbon::make($materiel->datedon)->format('d-m-Y') }}</td>
                                     </tr>
                                 @endforeach
