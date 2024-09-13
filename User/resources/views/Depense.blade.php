@@ -22,7 +22,7 @@
                                     <input type="hidden" value="{{ request()->segment(2) }}" name="camp">
                                     <select class="form-control" name="year" id="years">
                                         @foreach( $years as $year )
-                                            <option value="{{ $year->year }}">{{ $year->year }}</option>
+                                            <option value="{{ $year->annee }}">{{ $year->annee }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -32,7 +32,7 @@
                                             <label for="years" class="form-label">Mois</label>
                                             <select class="form-control" name="month" id="month">
                                                 @foreach( $months as $month )
-                                                    <option value="{{ $month->month }}">{{ ucfirst(\Carbon\Carbon::create()->month($month->month)->translatedFormat('F'))}}</option>
+                                                    <option value="{{ $month->mois }}">{{ ucfirst(\Carbon\Carbon::create()->month($month->mois)->translatedFormat('F'))}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

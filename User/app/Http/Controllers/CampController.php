@@ -299,15 +299,24 @@ class CampController extends Controller
     public function Depense($id)
     {
         try {
-            $years = DB::table('stockculture')
-                ->selectRaw('DISTINCT EXTRACT(YEAR FROM datestock) as year')
-                ->orderBy('year', 'desc')
+            $years = DB::table('don')
+                ->selectRaw('DISTINCT EXTRACT(YEAR FROM datedon) as annee')
+                ->union(
+                    DB::table('stockculture')
+                        ->selectRaw('DISTINCT EXTRACT(YEAR FROM datestock) as annee')
+                )
+                ->orderBy('annee', 'desc')
                 ->get();
 
-            $month = DB::table('stockculture')
-                ->selectRaw('DISTINCT EXTRACT(MONTH FROM datestock) as month')
-                ->orderBy('month', 'desc')
+            $month = DB::table('don')
+                ->selectRaw('DISTINCT EXTRACT(MONTH FROM datedon) as mois')
+                ->union(
+                    DB::table('stockculture')
+                        ->selectRaw('DISTINCT EXTRACT(MONTH FROM datestock) as mois')
+                )
+                ->orderBy('mois', 'desc')
                 ->get();
+
 
             $donArgent = DB::table('v_don')->where('id_camp', '=', $id)->where('id_materiel', '=', 1)->get();
             $totalArgent = DB::table('v_don')->where('id_camp', '=', $id)->where('id_materiel', '=', 1)->sum('quantite');
