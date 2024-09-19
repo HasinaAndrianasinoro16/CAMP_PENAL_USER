@@ -354,13 +354,22 @@ class CampController extends Controller
             ]);
 
             // Récupération des années disponibles
-            $years = DB::table('stockculture')->selectRaw('DISTINCT EXTRACT(YEAR FROM datestock) as year')
-                ->orderBy('year', 'desc')
+            $years = DB::table('don')
+                ->selectRaw('DISTINCT EXTRACT(YEAR FROM datedon) as annee')
+                ->union(
+                    DB::table('stockculture')
+                        ->selectRaw('DISTINCT EXTRACT(YEAR FROM datestock) as annee')
+                )
+                ->orderBy('annee', 'desc')
                 ->get();
 
-            // Récupération des mois disponibles
-            $month = DB::table('stockculture')->selectRaw('DISTINCT EXTRACT(MONTH FROM datestock) as month')
-                ->orderBy('month', 'desc')
+            $month = DB::table('don')
+                ->selectRaw('DISTINCT EXTRACT(MONTH FROM datedon) as mois')
+                ->union(
+                    DB::table('stockculture')
+                        ->selectRaw('DISTINCT EXTRACT(MONTH FROM datestock) as mois')
+                )
+                ->orderBy('mois', 'desc')
                 ->get();
 
             // Récupération des estimations pour le camp, l'année et le mois spécifiés

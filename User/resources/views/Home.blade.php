@@ -85,8 +85,8 @@
         }).addTo(map);
 
         @foreach($camps as $camp)
-        L.marker([{{ $camp->lat }}, {{ $camp->lng }}]).addTo(map).bindPopup("<b>{{ $camp->nom }}</b><br>");
-        {{--L.marker([{{ $camp->lat }}, {{ $camp->lng }}]).addTo(map).bindPopup("<b>{{ $camp->nom }}</b><br><a href=\"{{ route('DetailCamp', ['id' => $camp->id]) }}\">Details</a>");--}}
+        {{--L.marker([{{ $camp->lat }}, {{ $camp->lng }}]).addTo(map).bindPopup("<b>{{ $camp->nom }}</b><br>");--}}
+        L.marker([{{ $camp->lat }}, {{ $camp->lng }}]).addTo(map).bindPopup("<b>{{ $camp->nom }}</b><br><a href=\"{{ route('CampDetails', ['id' => $camp->id]) }}\">Details</a>");
         @endforeach
 
     </script>
