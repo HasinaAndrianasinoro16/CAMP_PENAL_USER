@@ -26,7 +26,7 @@
                                         <a href="{{ route('Conversation', ['user' => $user->id]) }}">
                                             {{ $user->name }}
                                             @if( $unreadMessages[$user->id]->count() > 0 )
-                                                <span class="text-warning">
+                                                <span class="text-success h5">
                                                     ({{ $unreadMessages[$user->id]->count()}} message(s) non lu(s))
                                                 </span>
                                             @endif
